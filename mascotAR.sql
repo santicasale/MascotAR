@@ -13,6 +13,13 @@ PRIMARY KEY (id_user),
 CONSTRAINT user_acc UNIQUE (nick,email)
 );
 
+CREATE TABLE if not exists newsletter(
+id_newsl INT not null AUTO_INCREMENT,
+email varchar(30) not null,
+PRIMARY KEY (id_newsl),
+UNIQUE (email)
+);
+
 CREATE TABLE if not exists usuario_presencial(
 id_user INT not null AUTO_INCREMENT,
 f_name varchar(20) not null,
@@ -55,14 +62,14 @@ PRIMARY KEY (id_pet_status)
     
 CREATE TABLE if not exists mascotas(
 id_pet INT not null AUTO_INCREMENT,
-pet_species enum('perro', 'gato') not null,
+pet_species INT not null,
 pet_name varchar(20) not null,
 pet_breed varchar(50),
 pet_sex INT not null,
 pet_age INT not null,
 pet_color1 INT not null,
 pet_color2 INT,
-pet_stock INT not null,
+pet_stock INT not null DEFAULT '1',
 pet_photo varchar(1000),
 PRIMARY KEY (id_pet),
 FOREIGN KEY (pet_species) REFERENCES mascota_especie(ID_pet_species),
@@ -83,8 +90,8 @@ CREATE TABLE if not exists donaciones(
 id_donacion INT not null AUTO_INCREMENT,
 monto decimal(15,2) not null,
 id_donador INT not null,
-fecha date not null,
-donacion_status INT not null,
+fecha date not null DEFAULT CURRENT_DATE(),
+donacion_status INT not null DEFAULT '1',
 comprobante_mp BLOB,
 PRIMARY KEY (id_donacion),
 FOREIGN KEY (id_donador) REFERENCES usuario(ID_user)
@@ -101,8 +108,8 @@ id_adopt INT not null AUTO_INCREMENT,
 id_pet_adopt INT not null,
 id_web_adopt INT,
 id_local_adopt INT,
-fecha date not null,
-adopcion_status INT not null,
+fecha date not null DEFAULT CURRENT_DATE(),
+adopcion_status INT not null DEFAULT '1',
 PRIMARY KEY (id_adopt),
 FOREIGN KEY (id_pet_adopt) REFERENCES mascotas(ID_pet),
 FOREIGN KEY (id_web_adopt) REFERENCES usuario_web(ID_user),
