@@ -94,7 +94,8 @@ fecha date not null DEFAULT CURRENT_DATE(),
 donacion_status INT not null DEFAULT '1',
 comprobante_mp BLOB,
 PRIMARY KEY (id_donacion),
-FOREIGN KEY (id_donador) REFERENCES usuario(ID_user)
+FOREIGN KEY (id_donador) REFERENCES usuario(ID_user),
+FOREIGN KEY (donacion_status) REFERENCES donacion_estado(ID_don_status)
 );
 
 CREATE TABLE if not exists adopt_estado(
