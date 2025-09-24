@@ -3,7 +3,7 @@ USE MascotAR;
 
 CREATE TABLE if not exists usuario_web(
 id_user INT not null AUTO_INCREMENT,
-f_name varchar(20) not null,
+f_name varchar(25) not null,
 l_name varchar(50) not null,
 nick varchar(20) not null,
 pass varchar(15) not null,
