@@ -134,7 +134,9 @@ INSERT INTO mascota_sexo (pet_sex) VALUES
 
 INSERT INTO mascota_especie (pet_species) VALUES
 ('PERRO'),
-('GATO');
+('GATO'),
+('TORTUGA'),
+('CANARIO'),;
 
 INSERT INTO mascota_color (pet_color) VALUES
 ('blanco'), 
