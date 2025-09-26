@@ -69,7 +69,7 @@ pet_sex INT not null,
 pet_age INT not null,
 pet_color1 INT not null,
 pet_color2 INT,
-pet_stock INT not null DEFAULT '1',
+pet_avail INT not null DEFAULT '1',
 pet_photo varchar(1000),
 PRIMARY KEY (id_pet),
 FOREIGN KEY (pet_species) REFERENCES mascota_especie(ID_pet_species),
@@ -77,7 +77,7 @@ FOREIGN KEY (pet_sex) REFERENCES mascota_sexo(ID_pet_sex),
 FOREIGN KEY (pet_age) REFERENCES mascota_edad(ID_pet_age),
 FOREIGN KEY (pet_color1) REFERENCES mascota_color(ID_pet_color),
 FOREIGN KEY (pet_color2) REFERENCES mascota_color(ID_pet_color),
-FOREIGN KEY (pet_stock) REFERENCES mascota_estado(ID_pet_status)
+FOREIGN KEY (pet_avail) REFERENCES mascota_estado(ID_pet_status)
 );
 
 CREATE TABLE if not exists donacion_estado(
