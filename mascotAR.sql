@@ -136,7 +136,11 @@ INSERT INTO mascota_especie (pet_species) VALUES
 ('PERRO'),
 ('GATO'),
 ('TORTUGA'),
-('CANARIO'),;
+('CANARIO');
+
+INSERT INTO  mascota_edad (pet_age) VALUES
+('CACHORRO'),
+('ADULTO');
 
 INSERT INTO mascota_color (pet_color) VALUES
 ('blanco'), 
@@ -151,3 +155,5 @@ INSERT INTO mascota_estado (pet_status) VALUES
 ('DISPONIBLE'),
 ('RESERVADO'),
 ('ADOPTADO');
+
+
