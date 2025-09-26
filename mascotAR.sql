@@ -77,7 +77,7 @@ FOREIGN KEY (pet_sex) REFERENCES mascota_sexo(ID_pet_sex),
 FOREIGN KEY (pet_age) REFERENCES mascota_edad(ID_pet_age),
 FOREIGN KEY (pet_color1) REFERENCES mascota_color(ID_pet_color),
 FOREIGN KEY (pet_color2) REFERENCES mascota_color(ID_pet_color),
-FOREIGN KEY (pet_stock) REFERENCES mascota_colormascota_estado(ID_pet_status)
+FOREIGN KEY (pet_stock) REFERENCES mascota_estado(ID_pet_status)
 );
 
 CREATE TABLE if not exists donacion_estado(
