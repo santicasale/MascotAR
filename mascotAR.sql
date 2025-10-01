@@ -1,7 +1,7 @@
 CREATE DATABASE if not exists MascotAR;
 USE MascotAR;
 
-CREATE TABLE if not exists usuario_web(
+CREATE TABLE if not exists usuario_admin(
 id_user INT not null AUTO_INCREMENT,
 f_name varchar(25) not null,
 l_name varchar(50) not null,
@@ -15,19 +15,19 @@ CONSTRAINT user_acc UNIQUE (nick,email)
 
 CREATE TABLE if not exists newsletter(
 id_newsl INT not null AUTO_INCREMENT,
+name varchar(50) not null,
 email varchar(30) not null,
 PRIMARY KEY (id_newsl),
 UNIQUE (email)
 );
 
-CREATE TABLE if not exists usuario_presencial(
-id_user INT not null AUTO_INCREMENT,
-f_name varchar(20) not null,
-l_name varchar(50) not null,
+CREATE TABLE if not exists quest(
+id_quest INT not null AUTO_INCREMENT,
+name varchar(50) not null,
 email varchar(30) not null,
-birthday date not null,
-phone INT(10) not null,
-PRIMARY KEY (id_user)
+mess varchar(500) not null,
+PRIMARY KEY (id_quest),
+UNIQUE (email)
 );
 
 CREATE TABLE if not exists mascota_especie(
@@ -89,12 +89,13 @@ PRIMARY KEY (id_don_status)
 CREATE TABLE if not exists donaciones(
 id_donacion INT not null AUTO_INCREMENT,
 monto decimal(15,2) not null,
-id_donador INT not null,
+f_name varchar(25) not null,
+l_name varchar(50) not null,
+email varchar(30) not null,
 fecha date not null DEFAULT CURRENT_DATE(),
 donacion_status INT not null DEFAULT '1',
 comprobante_mp BLOB,
 PRIMARY KEY (id_donacion),
-FOREIGN KEY (id_donador) REFERENCES usuario_web(ID_user),
 FOREIGN KEY (donacion_status) REFERENCES donacion_estado(ID_don_status)
 );
 
@@ -107,14 +108,15 @@ PRIMARY KEY (id_adopt_status)
 CREATE TABLE if not exists adopciones(
 id_adopt INT not null AUTO_INCREMENT,
 id_pet_adopt INT not null,
-id_web_adopt INT,
-id_local_adopt INT,
+monto decimal(15,2) not null,
+f_name varchar(25) not null,
+l_name varchar(50) not null,
+email varchar(30) not null,
+phone INT(10) not null,
 fecha date not null DEFAULT CURRENT_DATE(),
 adopcion_status INT not null DEFAULT '1',
 PRIMARY KEY (id_adopt),
 FOREIGN KEY (id_pet_adopt) REFERENCES mascotas(ID_pet),
-FOREIGN KEY (id_web_adopt) REFERENCES usuario_web(ID_user),
-FOREIGN KEY (id_local_adopt) REFERENCES usuario_presencial(ID_user),
 FOREIGN KEY (adopcion_status) REFERENCES adopt_estado(ID_adopt_status)
 );
 
