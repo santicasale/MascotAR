@@ -88,8 +88,7 @@ PRIMARY KEY (id_don_status)
 CREATE TABLE if not exists donaciones(
 id_donacion INT not null AUTO_INCREMENT,
 monto decimal(15,2) not null,
-f_name varchar(25) not null,
-l_name varchar(50) not null,
+name varchar(75) not null,
 email varchar(30) not null,
 fecha date not null DEFAULT CURRENT_DATE(),
 donacion_status INT not null DEFAULT '1',
