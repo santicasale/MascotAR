@@ -22,11 +22,11 @@ UNIQUE (email)
 );
 
 CREATE TABLE if not exists ask(
-id_quest INT not null AUTO_INCREMENT,
+id_ask INT not null AUTO_INCREMENT,
 name varchar(50) not null,
 email varchar(30) not null,
 msg varchar(500) not null,
-PRIMARY KEY (id_quest),
+PRIMARY KEY (id_ask),
 UNIQUE (email)
 );
 
