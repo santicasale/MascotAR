@@ -26,8 +26,7 @@ id_ask INT not null AUTO_INCREMENT,
 name varchar(50) not null,
 email varchar(30) not null,
 msg varchar(500) not null,
-PRIMARY KEY (id_ask),
-UNIQUE (email)
+PRIMARY KEY (id_ask)
 );
 
 CREATE TABLE if not exists mascota_especie(
