@@ -150,7 +150,6 @@ PRIMARY KEY (id_adopt_status)
 CREATE TABLE if not exists adopciones(
 id_adopt INT not null AUTO_INCREMENT,
 id_pet_adopt INT not null,
-monto decimal(15,2) not null,
 id_user_adopt INT,
 f_name varchar(25) not null,
 l_name varchar(50) not null,
