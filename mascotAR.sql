@@ -200,7 +200,7 @@ INSERT INTO mascota_vacuna (pet_vax) VALUES
 ('SÍ'),
 ('NO');
 
-INSERT INTO mascota_mascota_castracion (pet_neut) VALUES
+INSERT INTO mascota_castracion (pet_neut) VALUES
 ('SÍ'),
 ('NO');
 

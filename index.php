@@ -53,7 +53,7 @@ session_start();
                     <button type="submit">Entrar</button>
                   </form>
                   <p class="register-link">
-                    ¿No tenés cuenta? <a href="registrarse.html">Registrate</a>
+                    ¿No tenés cuenta? <a href="registrarse.php">Registrate</a>
                   </p>
                 </li>
               </ul>
