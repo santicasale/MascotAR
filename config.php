@@ -1,11 +1,10 @@
 <?php
 // config.php
-
 // === CONFIGURACIÓN DE BASE DE DATOS ===
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'final_mascotar');  // Cambia por el nombre real de tu base
+define('DB_HOST', 'sql313.infinityfree.com');
+define('DB_USER', 'if0_40059520');
+define('DB_PASS', 'MightyNo9');
+define('DB_NAME', 'if0_40059520_mascotar');  
 
 // === CONFIGURACIÓN DE MERCADO PAGO ===
 // Acces Token de pruebas o producción
