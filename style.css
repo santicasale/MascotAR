@@ -636,38 +636,44 @@ footer {
 
 
 .adoptar-lista {
-  padding: 40px;
-  background-color: #f9f9f9;
+  padding: 40px 20px;
+  text-align: center;
+  margin-bottom: 60px;
 }
 
 .adoptar-lista h2 {
-  text-align: center;
-  margin-bottom: 20px;
   font-family: 'Amatic SC', cursive;
-  font-size: 2.5em;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
 }
 
 .adoptar-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  gap: 25px;
+  justify-items: center;
 }
 
 .adoptar-card {
   background: #fff;
-  border-radius: 10px;
-  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 280px;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.adoptar-card:hover {
+  transform: translateY(-5px);
 }
 
 .adoptar-card img {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  transition: transform 0.5s ease; 
+  border-radius: 10px;
 }
 
 .adoptar-card img:hover {
@@ -689,17 +695,18 @@ footer {
 }
 
 .btn-adoptar {
-  background: #ff7043;
-  color: white;
-  padding: 10px 15px;
+  background-color: #ff7043;
+  color: #fff;
   border: none;
+  padding: 10px 18px;
   border-radius: 8px;
+  margin-top: 10px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .btn-adoptar:hover {
-  background: #e64a19;
+  background-color: #f4511e;
 }
 .adoptar-hero {
   background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));
@@ -721,6 +728,39 @@ footer {
 .adoptar-hero .hero-text p {
   font-size: 1.2rem;
   font-family: 'Open Sans', sans-serif;
+}
+
+
+.filtros {
+  background-color: #f9f9f9;
+  padding: 20px;
+  text-align: center;
+}
+
+.filtros-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.filtros select, 
+.filtros button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.filtros button {
+  background-color: #ff7b00;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.filtros button:hover {
+  background-color: #e06c00;
 }
 
 
@@ -856,4 +896,97 @@ footer {
 
 .register-link a:hover {
   text-decoration: underline;
+}
+
+
+/*formulario html */
+body {
+  background-color: #fffaf5;
+}
+
+.form-container {
+  max-width: 450px;
+  margin: 60px auto;
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+.form-container h2 {
+  text-align: center;
+  color: #f15a29;
+  font-size: 22px;
+  margin-bottom: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.form-container p {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #f15a29;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+textarea {
+  resize: none;
+}
+
+button {
+  background-color: #f15a29;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #d94e22;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .form-container h2 {
+    font-size: 20px;
+  }
+
+  input,
+  textarea {
+    font-size: 13px;
+  }
+
+  button {
+    font-size: 14px;
+  }
 }

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Adopción - MascotAR</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <img src="imagenesong/logomascotar.png" alt="Logo MascotAR">
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li>
+            <a href="index.html#nosotros">Quiénes Somos</a>
+            <ul class="submenu">
+              <li><a href="Prensa.html">Prensa</a></li>
+            </ul>
+          </li>
+          <li><a href="donar.html">Donar</a></li>
+          <li><a href="Adoptar.html">Adoptar</a></li>
+          <li class="user-menu">
+            <a href="#"><i class="fas fa-user"></i></a>
+            <ul class="submenu login-submenu">
+              <li>
+                <form class="login-form">
+                  <h3>Iniciar sesión</h3>
+                  <input type="email" name="email" placeholder="Ingrese su correo" required>
+                  <input type="password" name="pass" placeholder="Ingrese su contraseña" required>
+                  <button type="submit">Entrar</button>
+                </form>
+                <p class="register-link">¿No tenés cuenta? <a href="registrarse.html">Registrate</a></p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="form-container">
+      <h2>Formulario de Adopción</h2>
+      <p class="form-intro">
+        Para poder adoptar, necesitás tener una cuenta registrada.<br>
+        Si todavía no la tenés, <a href="registrarse.html" class="register-highlight">registrate aquí</a>.
+      </p>
+
+      <form action="#" method="post">
+        
+        <input type="hidden" id="mascota_adopcion" name="mascota_adopcion" value="">
+
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+
+        <label for="apellido">Apellido</label>
+        <input type="text" id="apellido" name="apellido" placeholder="Tu apellido" required>
+
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="ejemplo@mail.com" required>
+
+        <label for="telefono">Teléfono</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="Ej: 11 2345 6789" required>
+
+        <label for="domicilio">Domicilio</label>
+        <input type="text" id="domicilio" name="domicilio" placeholder="Ej: Calle 123, Pilar, Buenos Aires" required>
+
+        <label for="mensaje">Mensaje (opcional)</label>
+        <textarea id="mensaje" name="mensaje" rows="4" placeholder="Contanos por qué querés adoptar..."></textarea>
+
+        <button type="submit">Enviar Solicitud</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="imagenesong/logomascotar.png" alt="Logo MascotAR">
+      </div>
+
+      <div class="footer-section">
+        <h3>Contactos</h3>
+        <p><strong>Junta Directiva:</strong> Juan Pérez</p>
+        <p><strong>Tel:</strong> 11 8822 8844</p>
+        <p><strong>Email:</strong> info@mascotar.ong</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Dónde estamos</h3>
+        <p>Nos encontramos en Pilar,<br>Provincia de Buenos Aires.</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Consultas</h3>
+        <form action="#" method="post" class="footer-form">
+          <input type="text" placeholder="Tu nombre" required>
+          <input type="email" placeholder="Tu email" required>
+          <textarea placeholder="Tu mensaje" required></textarea>
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Obtiene los parámetros de la URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const nombreMascota = urlParams.get('mascota'); // Busca el parámetro 'mascota'
+
+      const inputMascota = document.getElementById('mascota_adopcion');
+      
+      if (nombreMascota) {
+          // 1. Poner el nombre en el campo oculto
+          inputMascota.value = nombreMascota;
+
+          // 2. Crear y mostrar un mensaje claro al usuario
+          const mensajeAdopcion = document.createElement('p');
+          mensajeAdopcion.className = 'adopcion-highlight';
+          mensajeAdopcion.innerHTML = `¡Estás a punto de iniciar el proceso para adoptar a <strong>${nombreMascota}</strong>!`;
+          
+          // Insertar el mensaje justo después del h2
+          const h2 = document.querySelector('.form-container h2');
+          if (h2) {
+            h2.insertAdjacentElement('afterend', mensajeAdopcion);
+          }
+
+      } else {
+          // Si no hay parámetro en la URL, se asume una adopción genérica
+          inputMascota.value = "Mascota no especificada";
+      }
+    });
+  </script>
+
+</body>
+</html>

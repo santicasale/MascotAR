@@ -44,23 +44,55 @@
     </div>
   </header>
 
- <section class="adoptar-hero">
+  <section class="adoptar-hero">
     <img src="imagenesong/adopta.01.webp" alt="Fondo Adoptar">
-  <div class="hero-text">
-    <h1>¡ADOPTÁ UN AMIGO PARA SIEMPRE!</h1>
-    <p>Vení a conocernos y descubrí cómo trabajamos para darles una segunda oportunidad.</p>
-  </div>
-</section>
+    <div class="hero-text">
+      <h1>¡ADOPTÁ UN AMIGO PARA SIEMPRE!</h1>
+      <p>Vení a conocernos y descubrí cómo trabajamos para darles una segunda oportunidad.</p>
+    </div>
+  </section>
 
+  <section class="filtros">
+    <h2>Filtrar Mascotas</h2>
+    <div class="filtros-container">
+      <select id="filtro-sexo">
+        <option value="">Sexo</option>
+        <option value="macho">Macho</option>
+        <option value="hembra">Hembra</option>
+      </select>
+
+      <select id="filtro-edad">
+        <option value="">Edad</option>
+        <option value="cachorro">Cachorro</option>
+        <option value="adulto-joven">Adulto joven</option>
+        <option value="adulto">Adulto</option>
+      </select>
+
+      <select id="filtro-tamaño">
+        <option value="">Tamaño</option>
+        <option value="chico">Chico</option>
+        <option value="mediano">Mediano</option>
+        <option value="grande">Grande</option>
+      </select>
+
+      <select id="filtro-compatible">
+        <option value="">Compatible con</option>
+        <option value="perros">Otros perros</option>
+        <option value="niños">Niños</option>
+      </select>
+
+      <button id="btn-limpiar">Limpiar filtros</button>
+    </div>
+  </section>
 
   <section class="adoptar-lista">
     <h2>Perros en Adopción</h2>
     <div class="adoptar-grid">
 
-      <div class="adoptar-card">
+      <div class="adoptar-card" data-sexo="macho" data-edad="cachorro" data-tamaño="mediano" data-compatible="niños,perros">
         <img src="imagenesong/rocky.jpg" alt="Perro en adopción">
         <h3>Rocky</h3>
-        <p><strong>Edad:</strong> 2 años</p>
+        <p><strong>Edad:</strong> Cachorro</p>
         <p><strong>Sexo:</strong> Macho</p>
         <p><strong>Estado:</strong> Disponible</p>
         <p><strong>Ficha médica:</strong></p>
@@ -72,39 +104,39 @@
         <button class="btn-adoptar">Quiero Adoptar</button>
       </div>
 
-      <div class="adoptar-card">
+      <div class="adoptar-card" data-sexo="hembra" data-edad="adulto" data-tamaño="mediano" data-compatible="niños,perros">
         <img src="imagenesong/Lola.jpg" alt="Perro en adopción">
         <h3>Lola</h3>
-        <p><strong>Edad:</strong> 3 años</p>
+        <p><strong>Edad:</strong> Adulto</p>
         <p><strong>Sexo:</strong> Hembra</p>
         <p><strong>Estado:</strong> Disponible</p>
         <p><strong>Ficha médica:</strong></p>
         <ul class="ficha-medica">
           <li>Vacunas al día 💉</li>
-          <li>Desparasitada✅</li>
+          <li>Desparasitada ✅</li>
           <li>Castrada 🐶</li>
         </ul>
         <button class="btn-adoptar">Quiero Adoptar</button>
       </div>
 
-      <div class="adoptar-card">
+      <div class="adoptar-card" data-sexo="macho" data-edad="adulto" data-tamaño="grande" data-compatible="perros">
         <img src="imagenesong/Max.jpeg" alt="Perro en adopción">
         <h3>Max</h3>
-        <p><strong>Edad:</strong> 1 año</p>
+        <p><strong>Edad:</strong> Adulto</p>
         <p><strong>Sexo:</strong> Macho</p>
         <p><strong>Estado:</strong> Disponible</p>
         <p><strong>Ficha médica:</strong></p>
         <ul class="ficha-medica">
           <li>Vacunas al día 💉</li>
-          <li>Desparasitado✅</li>
+          <li>Desparasitado ✅</li>
         </ul>
         <button class="btn-adoptar">Quiero Adoptar</button>
       </div>
 
-      <div class="adoptar-card">
+      <div class="adoptar-card" data-sexo="hembra" data-edad="adulto" data-tamaño="chico" data-compatible="niños,perros">
         <img src="imagenesong/Daisy.avif" alt="Perro en adopción">
         <h3>Daisy</h3>
-        <p><strong>Edad:</strong> 4 años</p>
+        <p><strong>Edad:</strong> Adulto</p>
         <p><strong>Sexo:</strong> Hembra</p>
         <p><strong>Estado:</strong> Disponible</p>
         <p><strong>Ficha médica:</strong></p>
@@ -115,10 +147,10 @@
         <button class="btn-adoptar">Quiero Adoptar</button>
       </div>
 
-      <div class="adoptar-card">
+      <div class="adoptar-card" data-sexo="macho" data-edad="adulto" data-tamaño="grande" data-compatible="niños">
         <img src="imagenesong/Buddy.avif" alt="Perro en adopción">
         <h3>Buddy</h3>
-        <p><strong>Edad:</strong> 2 años</p>
+        <p><strong>Edad:</strong> Adulto</p>
         <p><strong>Sexo:</strong> Macho</p>
         <p><strong>Estado:</strong> Disponible</p>
         <p><strong>Ficha médica:</strong></p>
@@ -128,15 +160,18 @@
         </ul>
         <button class="btn-adoptar">Quiero Adoptar</button>
       </div>
-    </div>
 
+    </div>
+  </section>
+
+  <section class="adoptar-lista">
     <h2>Gatos en Adopción</h2>
     <div class="adoptar-grid">
 
-      <div class="adoptar-card">
+      <div class="adoptar-card" data-sexo="hembra" data-edad="adulto" data-tamaño="chico" data-compatible="niños,perros">
         <img src="imagenesong/gato1.jpg" alt="Gato en adopción">
         <h3>Misha</h3>
-        <p><strong>Edad:</strong> 1 año</p>
+        <p><strong>Edad:</strong> Adulto</p>
         <p><strong>Sexo:</strong> Hembra</p>
         <p><strong>Estado:</strong> Disponible</p>
         <p><strong>Ficha médica:</strong></p>
@@ -148,10 +183,10 @@
         <button class="btn-adoptar">Quiero Adoptar</button>
       </div>
 
-      <div class="adoptar-card">
+      <div class="adoptar-card" data-sexo="macho" data-edad="cachorro" data-tamaño="chico" data-compatible="niños">
         <img src="imagenesong/gato2.webp" alt="Gato en adopción">
         <h3>Tom</h3>
-        <p><strong>Edad:</strong> 3 años</p>
+        <p><strong>Edad:</strong> Cachorro</p>
         <p><strong>Sexo:</strong> Macho</p>
         <p><strong>Estado:</strong> Disponible</p>
         <p><strong>Ficha médica:</strong></p>
@@ -162,10 +197,10 @@
         <button class="btn-adoptar">Quiero Adoptar</button>
       </div>
 
-      <div class="adoptar-card">
+      <div class="adoptar-card" data-sexo="hembra" data-edad="adulto" data-tamaño="chico" data-compatible="perros">
         <img src="imagenesong/gato3.jpg" alt="Gato en adopción">
         <h3>Nina</h3>
-        <p><strong>Edad:</strong> 2 años</p>
+        <p><strong>Edad:</strong> Adulto</p>
         <p><strong>Sexo:</strong> Hembra</p>
         <p><strong>Estado:</strong> Disponible</p>
         <p><strong>Ficha médica:</strong></p>
@@ -176,10 +211,10 @@
         <button class="btn-adoptar">Quiero Adoptar</button>
       </div>
 
-      <div class="adoptar-card">
+      <div class="adoptar-card" data-sexo="macho" data-edad="cachorro" data-tamaño="chico" data-compatible="niños,perros">
         <img src="imagenesong/gato4.jpg" alt="Gato en adopción">
         <h3>Simba</h3>
-        <p><strong>Edad:</strong> 4 años</p>
+        <p><strong>Edad:</strong> Cachorro</p>
         <p><strong>Sexo:</strong> Macho</p>
         <p><strong>Estado:</strong> Disponible</p>
         <p><strong>Ficha médica:</strong></p>
@@ -190,10 +225,10 @@
         <button class="btn-adoptar">Quiero Adoptar</button>
       </div>
 
-      <div class="adoptar-card">
+      <div class="adoptar-card" data-sexo="hembra" data-edad="cachorro" data-tamaño="chico" data-compatible="niños">
         <img src="imagenesong/gato5.jpg" alt="Gato en adopción">
         <h3>Luna</h3>
-        <p><strong>Edad:</strong> 6 meses</p>
+        <p><strong>Edad:</strong> Cachorro</p>
         <p><strong>Sexo:</strong> Hembra</p>
         <p><strong>Estado:</strong> Disponible</p>
         <p><strong>Ficha médica:</strong></p>
@@ -207,7 +242,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <div class="footer-container">
       <div class="footer-logo">
@@ -234,6 +268,68 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const filtroSexo = document.getElementById("filtro-sexo");
+      const filtroEdad = document.getElementById("filtro-edad");
+      const filtroTamaño = document.getElementById("filtro-tamaño");
+      const filtroCompatible = document.getElementById("filtro-compatible");
+      const btnLimpiar = document.getElementById("btn-limpiar");
+      const cards = document.querySelectorAll(".adoptar-card");
+      const botonesAdoptar = document.querySelectorAll(".btn-adoptar"); // Añadido
+
+      function aplicarFiltros() {
+        const sexo = filtroSexo.value;
+        const edad = filtroEdad.value;
+        const tamaño = filtroTamaño.value;
+        const compatible = filtroCompatible.value;
+
+        cards.forEach(card => {
+          const matchSexo = !sexo || card.dataset.sexo === sexo;
+          const matchEdad = !edad || card.dataset.edad === edad;
+          const matchTamaño = !tamaño || card.dataset.tamaño === tamaño;
+          const matchCompatible = !compatible || card.dataset.compatible.includes(compatible);
+
+          if (matchSexo && matchEdad && matchTamaño && matchCompatible) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      }
+
+      [filtroSexo, filtroEdad, filtroTamaño, filtroCompatible].forEach(filtro => {
+        filtro.addEventListener("change", aplicarFiltros);
+      });
+
+      btnLimpiar.addEventListener("click", () => {
+        filtroSexo.value = "";
+        filtroEdad.value = "";
+        filtroTamaño.value = "";
+        filtroCompatible.value = "";
+        cards.forEach(card => card.style.display = "block");
+      });
+
+      // =======================================================
+      // Lógica del botón "Quiero Adoptar" (Nuevo)
+      // =======================================================
+      botonesAdoptar.forEach(boton => {
+        boton.addEventListener('click', (event) => {
+          // Busca el elemento padre .adoptar-card
+          const card = event.target.closest('.adoptar-card');
+          
+          // Obtiene el nombre de la mascota
+          const nombreMascota = card.querySelector('h3').textContent.trim();
+          
+          // Codifica y redirige al formulario con el parámetro 'mascota'
+          const nombreCodificado = encodeURIComponent(nombreMascota);
+          window.location.href = `formulario.html?mascota=${nombreCodificado}`;
+        });
+      });
+      // =======================================================
+    });
+  </script>
 
 </body>
 </html>
