@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
   <header>
     <div class="header-container">
       <div class="logo">
@@ -52,91 +51,131 @@
   </div>
 </section>
 
-<center>
-<table border="1">
-  <tr>
-    <th>Especie</th>
-    <th>Nombre</th>
-    <th>Raza</th>
-    <th>Sexo</th>
-    <th>Edad</th>
-    <th>Color</th>
-    <th>Estado</th>
-    <th>¿Vacunado/a?</th>
-    <th>¿Castrado/a?</th>
-    <th>¿Desparasitado/a?</th>
-    <th>¿Discapacidad?</th>
-    <th>Foto</th>
-  </tr>
-  </center>
-
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 $servername = "sql313.infinityfree.com";
-$username = "if0_40059520"; 
-$password = "MightyNo9";     
+$username = "if0_40059520";
+$password = "MightyNo9";
 $dbname = "if0_40059520_mascotar";
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar
+// Verificar conexión
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
-// Asegurar uso de UTF-8 para la conexión
+// Asegurar uso de UTF-8
 $conn->set_charset("utf8mb4");
-// o: mysqli_set_charset($conn, "utf8mb4");
 
+// Consulta SQL
 $query = "
-SELECT mascota_especie.pet_species, mascotas.pet_name, mascotas.pet_breed, mascota_sexo.pet_sex, mascota_edad.pet_age, mascota_color.pet_color, mascota_estado.pet_status, mascota_vacuna.pet_vax, mascota_castracion.pet_neut, mascota_desparasitacion.pet_paras, mascota_discapacidad.pet_disabl, mascotas.pet_photo
-FROM mascotas
-INNER JOIN mascota_especie ON mascotas.pet_species = mascota_especie.id_pet_species
-INNER JOIN mascota_sexo ON mascotas.pet_sex = mascota_sexo.id_pet_sex
-INNER JOIN mascota_edad ON mascotas.pet_age = mascota_edad.id_pet_age
-INNER JOIN mascota_color ON mascotas.pet_color1 = mascota_color.id_pet_color
-INNER JOIN mascota_estado ON mascotas.pet_avail = mascota_estado.id_pet_status
-INNER JOIN mascota_vacuna ON mascotas.pet_vax = mascota_vacuna.id_pet_vax
-INNER JOIN mascota_castracion ON mascotas.pet_neut = mascota_castracion.id_pet_neut
-INNER JOIN mascota_desparasitacion ON mascotas.pet_paras = mascota_desparasitacion.id_pet_paras
-INNER JOIN mascota_discapacidad ON mascotas.pet_disabl = mascota_discapacidad.id_pet_disabl
-WHERE mascotas.pet_avail = 1
+ SELECT 
+    mascotas.pet_photo, 
+    mascota_especie.pet_species, 
+    mascotas.pet_name, 
+    mascotas.pet_breed, 
+    mascota_sexo.pet_sex, 
+    mascota_edad.pet_age, 
+    mascota_color.pet_color, 
+    mascota_estado.pet_status, 
+    mascotas_hist_medico.vax_moq, 
+    mascotas_hist_medico.vax_parvo, 
+    mascotas_hist_medico.vax_rab, 
+    mascotas_hist_medico.vax_lepto, 
+    mascotas_hist_medico.vax_hep, 
+    mascotas_hist_medico.vax_rino, 
+    mascotas_hist_medico.vax_calci, 
+    mascotas_hist_medico.vax_panleuc, 
+    mascotas_hist_medico.neut, 
+    mascotas_hist_medico.paras, 
+    mascotas_discapacidad.disabl_blind, 
+    mascotas_discapacidad.disabl_deaf, 
+    mascotas_discapacidad.disabl_limp
+ FROM mascotas
+ INNER JOIN mascota_especie ON mascotas.pet_species = mascota_especie.id_pet_species
+ INNER JOIN mascota_sexo ON mascotas.pet_sex = mascota_sexo.id_pet_sex
+ INNER JOIN mascota_edad ON mascotas.pet_age = mascota_edad.id_pet_age
+ INNER JOIN mascota_color ON mascotas.pet_color1 = mascota_color.id_pet_color
+ INNER JOIN mascota_estado ON mascotas.pet_avail = mascota_estado.id_pet_status
+ INNER JOIN mascotas_hist_medico ON mascotas.id_pet = mascotas_hist_medico.id_pet_med
+ INNER JOIN mascotas_discapacidad ON mascotas.id_pet = mascotas_discapacidad.id_pet_disabl
+ WHERE mascotas.pet_avail = 1
 ";
 
 $result = $conn->query($query);
-
 if (!$result) {
     die("Query error: " . $conn->error);
 }
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>". htmlspecialchars($row['pet_species']) ."</td>";
-        echo "<td>". htmlspecialchars($row['pet_name']) ."</td>";
-        echo "<td>". htmlspecialchars($row['pet_breed']) ."</td>";
-        echo "<td>". htmlspecialchars($row['pet_sex']) ."</td>";
-        echo "<td>". htmlspecialchars($row['pet_age']) ."</td>";
-        echo "<td>". htmlspecialchars($row['pet_color']) ."</td>";
-        echo "<td>". htmlspecialchars($row['pet_status']) ."</td>";
-        echo "<td>". htmlspecialchars($row['pet_vax']) ."</td>";
-        echo "<td>". htmlspecialchars($row['pet_neut']) ."</td>";
-        echo "<td>". htmlspecialchars($row['pet_paras']) ."</td>";
-        echo "<td>". htmlspecialchars($row['pet_disabl']) ."</td>";
-        $photo = htmlspecialchars($row['pet_photo'], ENT_QUOTES, 'UTF-8');
-echo '<td><img src="'. $photo .'" alt="Photo" style="max-width:120px; height:auto; display:block;" loading="lazy" onerror="this.onerror=null;this.src=\'/path/to/placeholder.png\'"></td>';
-        echo "</tr>";
-    }
-} else {
-    echo "<tr><td colspan='12'>No pets found.</td></tr>";
+// Generar la cabecera de la tabla
+echo "<center><table border='1'>";
+echo "<tr>
+        <th>Foto</th>
+        <th>Especie</th>
+        <th>Nombre</th>
+        <th>Raza</th>
+        <th>Sexo</th>
+        <th>Edad</th>
+        <th>Color</th>
+        <th>Estado</th>
+        <th>Hist. Médico</th>
+        <th>Discapacidad(es)</th>
+      </tr>";
+
+// Recorrer resultados para crear filas
+while ($row = $result->fetch_assoc()) {
+    echo "<tr>";
+    // Foto
+    $photo = htmlspecialchars($row['pet_photo'], ENT_QUOTES, 'UTF-8');
+    echo '<td><img src="'. $photo .'" alt="Photo" style="max-width:120px; height:auto; display:block;" loading="lazy" onerror="this.onerror=null;this.src=\'/path/to/placeholder.png\'"></td>';
+
+    // Especie
+    echo "<td>". htmlspecialchars($row['pet_species']) ."</td>";
+    // Nombre
+    echo "<td>". htmlspecialchars($row['pet_name']) ."</td>";
+    // Raza
+    echo "<td>". htmlspecialchars($row['pet_breed']) ."</td>";
+    // Sexo
+    echo "<td>". htmlspecialchars($row['pet_sex']) ."</td>";
+    // Edad
+    echo "<td>". htmlspecialchars($row['pet_age']) ."</td>";
+    // Color
+    echo "<td>". htmlspecialchars($row['pet_color']) ."</td>";
+    // Estado
+    echo "<td>". htmlspecialchars($row['pet_status']) ."</td>";
+    // Hist. Médico (vacunaciones)
+    echo "<td>
+            Vac. Moquillo: ". htmlspecialchars($row['vax_moq']) ."<br>
+            Vac. Parvovirus: ". htmlspecialchars($row['vax_parvo']) ."<br>
+            Vac. Anti-rábica: ". htmlspecialchars($row['vax_rab']) ."<br>
+            Vac. Leptospirosis: ". htmlspecialchars($row['vax_lepto']) ."<br>
+            Vac. Hepatitis: ". htmlspecialchars($row['vax_hep']) ."<br>
+            Vac. Rinotraqueitis: ". htmlspecialchars($row['vax_rino']) ."<br>
+            Vac. Calicivirus: ". htmlspecialchars($row['vax_calci']) ."<br>
+            Vac. Panleucopenia: ". htmlspecialchars($row['vax_panleuc']) ."<br><br>
+            Castrado/a: ". htmlspecialchars($row['neut']) ."<br>
+            Desparasitado/a: ". htmlspecialchars($row['paras']) ."
+          </td>";
+// Discapacidad(es)
+$discapacidades = [];
+if (strtolower(trim($row['disabl_blind'])) === "SÍ") $discapacidades[] = "Ceguera";
+if (strtolower(trim($row['disabl_deaf'])) === "SÍ") $discapacidades[] = "Audición";
+if (strtolower(trim($row['disabl_limp'])) === "SÍ") $discapacidades[] = "Lisiado";
+
+echo "<td>" . (count($discapacidades) > 0 ? implode(", ", $discapacidades) : "Ninguna") . "</td>";
+
+    echo "</tr>";
 }
+echo "</table></center>";
+
+// Cerrar conexión
 $conn->close();
 ?>
- </tbody>
-</table>
   <!-- Footer -->
   <footer>
     <div class="footer-container">
