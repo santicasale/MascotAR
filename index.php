@@ -36,7 +36,7 @@ session_start();
               <!-- Usuario logueado -->
               <a href="#"><i class="fas fa-user"></i> Hola, <?php echo htmlspecialchars($_SESSION['nick']); ?></a>
               <ul class="submenu">
-                <li><a href="">Historial de donaciones</a></li>
+                <li><a href="historial_donaciones.php">Historial de donaciones</a></li>
                 <li><a href="">Historial de adopciones</a></li>
                 <li><a href="logout.php">Cerrar sesión</a></li>
               </ul>

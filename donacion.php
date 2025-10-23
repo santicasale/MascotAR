@@ -79,8 +79,8 @@ session_start();
         <!-- Formulario -->
         <div class="donar-form">
           <form id="donar-form" action="donar.php" method="post" enctype="multipart/form-data">
-            <input type="text" name="nombre" placeholder="Tu nombre" required>
-            <input type="email" name="email" placeholder="Tu email" required>
+            <input type="text" name="nombre" placeholder="Tu nombre" >
+            <input type="email" name="email" placeholder="Tu email" >
             <input type="number" name="monto" id="monto" placeholder="Monto a donar" required>
             
             <label for="alias"><strong>Alias para transferir:</strong></label>
@@ -89,7 +89,6 @@ session_start();
               <img src="imagenesong/mp.webp" alt="Alias de transferencia">
             </div>
 
-            <textarea name="mensaje" placeholder="Comentario opcional (ej: Dono en nombre de mi mascota)"></textarea>
 
             <!-- Nuevo campo: adjuntar comprobante -->
             <label for="comprobante"><strong>Adjuntar comprobante de transferencia:</strong></label>
