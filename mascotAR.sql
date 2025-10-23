@@ -127,8 +127,8 @@ PRIMARY KEY (id_don_status)
 CREATE TABLE if not exists donaciones(
 id_donacion INT not null AUTO_INCREMENT,
 monto decimal(15,2) not null,
-name varchar(75) not null,
-email varchar(30) not null,
+name varchar(75),
+email varchar(30),
 fecha date not null DEFAULT CURRENT_DATE(),
 donacion_status INT not null DEFAULT '1',
 comprobante_mp BLOB,
@@ -145,7 +145,8 @@ PRIMARY KEY (id_adopt_status)
 CREATE TABLE if not exists adopciones(
 id_adopt INT not null AUTO_INCREMENT,
 id_pet_adopt INT not null,
-id_user_adopt INT,
+id_user_adopt INT not null,
+user_address varchar(200) not null,
 adopcion_status INT not null DEFAULT '1',
 PRIMARY KEY (id_adopt),
 FOREIGN KEY (id_pet_adopt) REFERENCES mascotas(ID_pet),
