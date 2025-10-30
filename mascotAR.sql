@@ -22,6 +22,7 @@ pass varchar(15) not null,
 email varchar(30) not null,
 birthday date not null,
 phone INT(10) not null,
+domicilio varchar(70) not null,
 web ENUM('SÍ', 'NO') not null,
 PRIMARY KEY (id_user),
 CONSTRAINT user_acc UNIQUE (nick,email)
