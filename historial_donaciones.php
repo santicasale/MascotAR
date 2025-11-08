@@ -1,17 +1,21 @@
 <?php
 session_start();
-require_once __DIR__ . '/config.php';
+
+// Conexión a la base de datos
+define('DB_HOST', 'sql111.infinityfree.com');
+define('DB_USER', 'if0_40132447');
+define('DB_PASS', '1zY0LORQz4gMI4');
+define('DB_NAME', 'if0_40132447_mascotar');
+
+$conexion = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+if ($conexion->connect_error) {
+    die("Error de conexión: " . $conexion->connect_error);
+}
 
 // --- Verificar sesión ---
 if (!isset($_SESSION['email'])) {
   echo "<script>alert('Debes iniciar sesión para ver tu historial de donaciones.'); window.location.href='index.php';</script>";
   exit();
-}
-
-// --- Conexión a BD ---
-$conexion = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-if ($conexion->connect_error) {
-  die("Error de conexión: " . $conexion->connect_error);
 }
 
 // --- Obtener el email del usuario logueado ---
@@ -26,15 +30,16 @@ $sql = "
   ORDER BY d.fecha DESC
 ";
 
-$stmt = $conexion->prepare($sql);
-if (!$stmt) {
+$stmt_historial = $conexion->prepare($sql);
+if (!$stmt_historial) {
   die("Error en la consulta SQL: " . $conexion->error);
 }
 
-$stmt->bind_param("s", $email_usuario);
-$stmt->execute();
-$result = $stmt->get_result();
+$stmt_historial->bind_param("s", $email_usuario);
+$stmt_historial->execute();
+$result = $stmt_historial->get_result();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -55,16 +60,50 @@ $result = $stmt->get_result();
     <nav>
       <ul>
         <li><a href="index.php">Inicio</a></li>
-        <li><a href="donacion.php">Donar</a></li>
-        <li><a href="adoptar.php">Adoptar</a></li>
-        <li class="user-menu">
-          <a href="#"><i class="fas fa-user"></i> <?php echo htmlspecialchars($_SESSION['nick']); ?></a>
+        <li>
+          <a href="index.php#nosotros">Quiénes Somos</a>
           <ul class="submenu">
-            <li><a href="historial_donaciones.php">Historial de donaciones</a></li>
-            <li><a href="#">Historial de adopciones</a></li>
-            <li><a href="logout.php">Cerrar sesión</a></li>
+            <li><a href="prensa.html">Prensa</a></li>
           </ul>
         </li>
+        <li><a href="donacion.php">Donar</a></li>
+        <li><a href="adoptar.php">Adoptar</a></li>
+        <?php if (isset($_SESSION['nick'])): ?>
+          <li class="user-menu">
+            <!-- Usuario logueado -->
+            <a href="#"><i class="fas fa-user"></i> Hola, <?php echo htmlspecialchars($_SESSION['nick']); ?></a>
+            <ul class="submenu">
+              <?php if (!empty($_SESSION['admin']) && $_SESSION['admin'] == "SI"): ?>
+                <!-- Menú exclusivo para administradores -->
+                <li><a href="ver_usuarios.php">Gestión de usuarios</a></li>
+                <li><a href="ver_donaciones.php">Ver donaciones</a></li>
+                <li><a href="ver_adopciones.php">Ver adopciones</a></li>
+                <li><a href="ingreso_mascotas.php">Ingreso de mascotas</a></li>
+                <hr>
+              <?php endif; ?>
+              <li><a href="historial_donaciones.php">Historial de donaciones</a></li>
+              <li><a href="historial_adopciones.php">Historial de adopciones</a></li>
+              <li><a href="logout.php">Cerrar sesión</a></li>
+            </ul>
+          <?php else: ?>
+            <!-- Usuario NO logueado -->
+            <li class="user-menu">
+              <a href="#"><i class="fas fa-user"></i></a>
+              <ul class="submenu login-submenu">
+                <li>
+                  <form class="login-form" action="login.php" method="post">
+                    <h3>Iniciar sesión</h3>
+                    <input type="email" name="email" placeholder="Ingrese su correo" required>
+                    <input type="password" name="pass" placeholder="Ingrese su contraseña" required>
+                    <button type="submit">Entrar</button>
+                  </form>
+                  <p class="register-link">
+                    ¿No tenés cuenta? <a href="registrarse.php">Registrate</a>
+                  </p>
+                </li>
+            </ul>
+          </li>
+        <?php endif; ?>
       </ul>
     </nav>
   </div>
@@ -134,10 +173,10 @@ $result = $stmt->get_result();
 
     <div class="footer-section">
       <h3>Consultas</h3>
-      <form action="#" method="post" class="footer-form">
-        <input type="text" placeholder="Tu nombre" required>
-        <input type="email" placeholder="Tu email" required>
-        <textarea placeholder="Tu mensaje" required></textarea>
+      <form action="procesar_consulta.php" method="post" class="footer-form">
+        <input type="text" name="name" placeholder="Tu nombre" required>
+        <input type="email" name="email" placeholder="Tu email" required>
+        <textarea name="msg" placeholder="Tu mensaje" required></textarea>
         <button type="submit">Enviar</button>
       </form>
     </div>
@@ -148,6 +187,6 @@ $result = $stmt->get_result();
 </html>
 
 <?php
-$stmt->close();
+$stmt_historial->close();
 $conexion->close();
 ?>

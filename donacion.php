@@ -23,42 +23,50 @@ session_start();
         <ul>
           <li><a href="index.php">Inicio</a></li>
           <li>
-            <a href="index.html#nosotros">Quiénes Somos</a>
+            <a href="index.php#nosotros">Quiénes Somos</a>
             <ul class="submenu">
               <li><a href="prensa.html">Prensa</a></li>
             </ul>
           </li>
-          <li><a href="donar.html" class="active">Donar</a></li>
-          <li><a href="adoptar.html">Adoptar</a></li>
+          <li><a href="donacion.php" class="active">Donar</a></li>
+          <li><a href="adoptar.php">Adoptar</a></li>
 
-          <li class="user-menu">
-            <?php if (isset($_SESSION['nick'])): ?>
-              <!-- ✅ Usuario logueado -->
+          <?php if (isset($_SESSION['nick'])): ?>
+            <li class="user-menu">
+              <!-- Usuario logueado -->
               <a href="#"><i class="fas fa-user"></i> Hola, <?php echo htmlspecialchars($_SESSION['nick']); ?></a>
               <ul class="submenu">
+                <?php if (!empty($_SESSION['admin']) && $_SESSION['admin'] == "SI"): ?>
+                  <!-- Menú exclusivo para administradores -->
+                  <li><a href="ver_usuarios.php">Gestión de usuarios</a></li>
+                  <li><a href="ver_donaciones.php">Ver donaciones</a></li>
+                  <li><a href="ver_adopciones.php">Ver adopciones</a></li>
+                  <li><a href="ingreso_mascotas.php">Ingreso de mascotas</a></li>
+                  <hr>
+                <?php endif; ?>
                 <li><a href="historial_donaciones.php">Historial de donaciones</a></li>
                 <li><a href="historial_adopciones.php">Historial de adopciones</a></li>
                 <li><a href="logout.php">Cerrar sesión</a></li>
               </ul>
-
             <?php else: ?>
-              <!-- 🔒 Usuario NO logueado -->
-              <a href="#"><i class="fas fa-user"></i></a>
-              <ul class="submenu login-submenu">
-                <li>
-                  <form class="login-form" action="login.php" method="post">
-                    <h3>Iniciar sesión</h3>
-                    <input type="email" name="email" placeholder="Ingrese su correo" required>
-                    <input type="password" name="pass" placeholder="Ingrese su contraseña" required>
-                    <button type="submit">Entrar</button>
-                  </form>
-                  <p class="register-link">
-                    ¿No tenés cuenta? <a href="registrarse.html">Registrate</a>
-                  </p>
-                </li>
+              <!-- Usuario NO logueado -->
+              <li class="user-menu">
+                <a href="#"><i class="fas fa-user"></i></a>
+                <ul class="submenu login-submenu">
+                  <li>
+                    <form class="login-form" action="login.php" method="post">
+                      <h3>Iniciar sesión</h3>
+                      <input type="email" name="email" placeholder="Ingrese su correo" required>
+                      <input type="password" name="pass" placeholder="Ingrese su contraseña" required>
+                      <button type="submit">Entrar</button>
+                    </form>
+                    <p class="register-link">
+                      ¿No tenés cuenta? <a href="registrarse.php">Registrate</a>
+                    </p>
+                  </li>
               </ul>
-            <?php endif; ?>
-          </li>
+            </li>
+          <?php endif; ?>
         </ul>
       </nav>
     </div>
@@ -89,8 +97,6 @@ session_start();
               <img src="imagenesong/mp.webp" alt="Alias de transferencia">
             </div>
 
-
-            <!-- Nuevo campo: adjuntar comprobante -->
             <label for="comprobante"><strong>Adjuntar comprobante de transferencia:</strong></label>
             <input type="file" id="comprobante" name="comprobante" accept="image/*,application/pdf">
             <p id="archivo-nombre"></p>

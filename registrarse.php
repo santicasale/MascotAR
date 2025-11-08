@@ -67,6 +67,8 @@ if (isset($_SESSION['nick'])) {
         <input type="password" name="pass" placeholder="Contraseña" required>
         <input type="email" name="email" placeholder="Email" required>
         <input type="date" name="birthday" required>
+        <input type="text" name="phone" placeholder="Telefono" required>
+        <input type="text" name="domicilio" placeholder="domicilio" required>
         <button type="submit">Registrarme</button>
       </form>
 
@@ -97,12 +99,12 @@ if (isset($_SESSION['nick'])) {
       <p>Nos encontramos en Pilar,<br>Provincia de Buenos Aires.</p>
     </div>
 
-    <div class="footer-section">
+   <div class="footer-section">
       <h3>Consultas</h3>
-      <form action="#" method="post" class="footer-form">
-        <input type="text" placeholder="Tu nombre" required>
-        <input type="email" placeholder="Tu email" required>
-        <textarea placeholder="Tu mensaje" required></textarea>
+      <form action="procesar_consulta.php" method="post" class="footer-form">
+        <input type="text" name="name" placeholder="Tu nombre" required>
+        <input type="email" name="email" placeholder="Tu email" required>
+        <textarea name="msg" placeholder="Tu mensaje" required></textarea>
         <button type="submit">Enviar</button>
       </form>
     </div>

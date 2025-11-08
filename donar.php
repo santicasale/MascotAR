@@ -1,5 +1,11 @@
 <?php
-require_once __DIR__ . '/config.php';
+include("conexion.php");
+// Configuración de Mercado Pago
+define('MP_ACCESS_TOKEN', 'APP_USR-502327826682038-100521-ae23557030dcf30365aa3fa312265775-2906214560');
+define('BASE_URL', 'https://mascotar.wuaze.com');
+define('WEBHOOK_URL', BASE_URL . '/webhook.php');
+
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 use MercadoPago\SDK;
@@ -13,18 +19,11 @@ SDK::setAccessToken(MP_ACCESS_TOKEN);
 $name = $_POST['nombre'] ?? '';
 $email = $_POST['email'] ?? '';
 $monto = floatval($_POST['monto'] ?? 0);
-$estado_id = 1; // 1 = PENDIENTE según tu tabla donacion_estado
+$estado_id = 1; 
 
 if ($monto <= 0) {
   die("⚠️ Monto inválido.");
 }
-
-// Conexión a la base de datos
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-if ($conn->connect_error) {
-  die("Error de conexión: " . $conn->connect_error);
-}
-$conn->set_charset("utf8mb4");
 
 // Leer el comprobante si se adjunta
 $comprobanteData = null;
@@ -35,12 +34,12 @@ if (!empty($_FILES['comprobante']['tmp_name'])) {
 // Insertar la donación
 $sql = "INSERT INTO donaciones (monto, name, email, donacion_status, comprobante_mp)
         VALUES (?, ?, ?, ?, ?)";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("dssis", $monto, $name, $email, $estado_id, $comprobanteData);
-$stmt->send_long_data(4, $comprobanteData);
-$stmt->execute();
-$id_donacion = $stmt->insert_id;
-$stmt->close();
+$stmt_donacion = $conn->prepare($sql);
+$stmt_donacion->bind_param("dssis", $monto, $name, $email, $estado_id, $comprobanteData);
+$stmt_donacion->send_long_data(4, $comprobanteData);
+$stmt_donacion->execute();
+$id_donacion = $stmt_donacion->insert_id;
+$stmt_donacion->close();
 $conn->close();
 
 // Crear preferencia de pago
@@ -53,11 +52,10 @@ $item->unit_price = $monto;
 $preference = new Preference();
 $preference->items = [$item];
 $preference->external_reference = $id_donacion;
-$preference->notification_url = WEBHOOK_URL; // Mantener si usás webhook
+$preference->notification_url = WEBHOOK_URL; 
 
 $preference->save();
 
-// Redirigir al checkout de Mercado Pago
 header("Location: " . $preference->init_point);
 exit;
 ?>

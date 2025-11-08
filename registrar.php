@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 include("conexion.php");
 
 // Recibir datos
@@ -8,9 +11,13 @@ $nick     = $_POST['nick'];
 $pass     = $_POST['pass'];
 $email    = $_POST['email'];
 $birthday = $_POST['birthday'];
+$phone = $_POST['phone'];
+$domicilio = $_POST['domicilio'];
+$web = 'SÍ';
+$admin = 'NO';
 
 // Verificar si el email o nick ya existen
-$check = "SELECT * FROM usuario_web WHERE email='$email' OR nick='$nick'";
+$check = "SELECT * FROM usuario WHERE email='$email' OR nick='$nick'";
 $result = $conn->query($check);
 
 if ($result->num_rows > 0) {
@@ -21,8 +28,8 @@ if ($result->num_rows > 0) {
           </script>";
 } else {
     // Registro de nuevo usuario
-    $sql = "INSERT INTO usuario_web (f_name, l_name, nick, pass, email, birthday)
-            VALUES ('$f_name', '$l_name', '$nick', '$pass', '$email', '$birthday')";
+    $sql = "INSERT INTO usuario (f_name, l_name, nick, pass, email, birthday, phone, domicilio, web, admin)
+            VALUES ('$f_name', '$l_name', '$nick', '$pass', '$email', '$birthday', '$phone','$domicilio','$web','$admin')";
     
     if ($conn->query($sql) === TRUE) {
         echo "<script>

@@ -829,6 +829,23 @@ footer {
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
+/* Alinea correctamente el checkbox con el texto */
+.checkbox-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; 
+  margin: 10px 0;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+/* Hace que el checkbox no se desplace verticalmente */
+.checkbox-line input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: #ff6600;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -993,4 +1010,9 @@ button:hover {
 
 
 /* adoptados */
-
+.ingreso{
+  font-family: 'Amatic SC', cursive;
+  font-size: 45px;
+  margin: 0 0 20px;
+  color: white;
+} 

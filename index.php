@@ -29,35 +29,46 @@ session_start();
             </ul>
           </li>
           <li><a href="donacion.php">Donar</a></li>
-          <li><a href="adoptar.html">Adoptar</a></li>
+          <li><a href="adoptar.php">Adoptar</a></li>
 
           <li class="user-menu">
             <?php if (isset($_SESSION['nick'])): ?>
+            <li class="user-menu">
               <!-- Usuario logueado -->
               <a href="#"><i class="fas fa-user"></i> Hola, <?php echo htmlspecialchars($_SESSION['nick']); ?></a>
               <ul class="submenu">
+                  
+                <?php if (!empty($_SESSION['admin']) && $_SESSION['admin'] == "SÍ"): ?>
+                  <!-- Menú exclusivo para administradores -->
+                  <li><a href="ver_usuarios.php">Gestión de usuarios</a></li>
+                  <li><a href="ver_donaciones.php">Ver donaciones</a></li>
+                  <li><a href="ver_adopciones.php">Ver adopciones</a></li>
+                  <li><a href="ingreso_mascotas.php">Ingreso de mascotas</a></li>
+                  <hr>
+                <?php endif; ?>
                 <li><a href="historial_donaciones.php">Historial de donaciones</a></li>
-                <li><a href="">Historial de adopciones</a></li>
+                <li><a href="historial_adopciones.php">Historial de adopciones</a></li>
                 <li><a href="logout.php">Cerrar sesión</a></li>
               </ul>
-
             <?php else: ?>
               <!-- Usuario NO logueado -->
-              <a href="#"><i class="fas fa-user"></i></a>
-              <ul class="submenu login-submenu">
-                <li>
-                  <form class="login-form" action="login.php" method="post">
-                    <h3>Iniciar sesión</h3>
-                    <input type="email" name="email" placeholder="Ingrese su correo" required>
-                    <input type="password" name="pass" placeholder="Ingrese su contraseña" required>
-                    <button type="submit">Entrar</button>
-                  </form>
-                  <p class="register-link">
-                    ¿No tenés cuenta? <a href="registrarse.php">Registrate</a>
-                  </p>
-                </li>
+              <li class="user-menu">
+                <a href="#"><i class="fas fa-user"></i></a>
+                <ul class="submenu login-submenu">
+                  <li>
+                    <form class="login-form" action="login.php" method="post">
+                      <h3>Iniciar sesión</h3>
+                      <input type="email" name="email" placeholder="Ingrese su correo" required>
+                      <input type="password" name="pass" placeholder="Ingrese su contraseña" required>
+                      <button type="submit">Entrar</button>
+                    </form>
+                    <p class="register-link">
+                      ¿No tenés cuenta? <a href="registrarse.php">Registrate</a>
+                    </p>
+                  </li>
               </ul>
-            <?php endif; ?>
+            </li>
+          <?php endif; ?>
           </li>
         </ul>
       </nav>
@@ -161,14 +172,14 @@ session_start();
       </div>
 
       <div class="footer-section">
-        <h3>Consultas</h3>
-        <form action="#" method="post" class="footer-form">
-          <input type="text" placeholder="Tu nombre" required>
-          <input type="email" placeholder="Tu email" required>
-          <textarea placeholder="Tu mensaje" required></textarea>
-          <button type="submit">Enviar</button>
-        </form>
-      </div>
+      <h3>Consultas</h3>
+      <form action="procesar_consulta.php" method="post" class="footer-form">
+        <input type="text" name="name" placeholder="Tu nombre" required>
+        <input type="email" name="email" placeholder="Tu email" required>
+        <textarea name="msg" placeholder="Tu mensaje" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
     </div>
   </footer>
 

@@ -1,58 +1,53 @@
 <?php
-// webhook.php
-require_once __DIR__ . '/config.php';
+include("conexion.php");
+
+// Configuración de Mercado Pago
+define('MP_ACCESS_TOKEN', 'APP_USR-502327826682038-100521-ae23557030dcf30365aa3fa312265775-2906214560');
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 use MercadoPago\SDK;
 
+// Configurar SDK
 SDK::setAccessToken(MP_ACCESS_TOKEN);
 
-// Capturar la notificación enviada por Mercado Pago
-$body = file_get_contents('php://input');
-$data = json_decode($body, true);
-
-// Guardar registro del webhook (útil para depurar)
-file_put_contents(__DIR__ . '/logs/webhook_log.txt', date('Y-m-d H:i:s') . " => " . $body . PHP_EOL, FILE_APPEND);
-
-if (!isset($data['type']) || $data['type'] !== 'payment') {
-    http_response_code(200);
-    exit("Notificación ignorada (no es de tipo 'payment').");
-}
-
-// Obtener ID del pago desde la notificación
-$payment_id = $data['data']['id'] ?? null;
-if (!$payment_id) {
+// Recibir contenido de Mercado Pago (JSON)
+$data = file_get_contents("php://input");
+if (!$data) {
     http_response_code(400);
-    exit("Sin ID de pago.");
+    exit("Sin datos recibidos");
 }
 
-try {
-    // Consultar información del pago en MP
-    $payment = MercadoPago\Payment::find_by_id($payment_id);
+$event = json_decode($data, true);
 
-    // Datos útiles
-    $status = $payment->status; // approved | rejected | pending
-    $external_reference = $payment->external_reference; // ID de la donación en tu BD
+// Verificar que la notificación sea de un pago
+if (isset($event["type"]) && $event["type"] === "payment") {
+    $payment_id = $event["data"]["id"];
 
-    // Conexión a la base de datos
-    $conexion = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-    if ($conexion->connect_error) {
-        throw new Exception("Error al conectar a la base de datos: " . $conexion->connect_error);
+    // Consultar el pago en Mercado Pago
+    $ch = curl_init("https://api.mercadopago.com/v1/payments/$payment_id");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Authorization: Bearer " . MP_ACCESS_TOKEN
+    ]);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    $payment = json_decode($response, true);
+
+    // Si el pago fue aprobado
+    if (isset($payment["status"]) && $payment["status"] === "approved") {
+        $external_reference = intval($payment["external_reference"]); // ID de la donación
+
+        // Actualizar el estado a 2
+        $sql = "UPDATE donaciones SET donacion_status = 2 WHERE id_donacion = ?";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("i", $external_reference);
+        $stmt->execute();
+        $stmt->close();
+        $conexion->close();
     }
-
-    // Actualizar el estado de la donación
-    $sql = "UPDATE donaciones SET donacion_status = ? WHERE id_donacion = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("ss", $status, $external_reference);
-    $stmt->execute();
-    $stmt->close();
-
-    http_response_code(200);
-    echo "Webhook procesado correctamente.";
-
-} catch (Exception $e) {
-    file_put_contents(__DIR__ . '/logs/webhook_error.txt', date('Y-m-d H:i:s') . " => " . $e->getMessage() . PHP_EOL, FILE_APPEND);
-    http_response_code(500);
-    echo "Error al procesar webhook.";
 }
+
+http_response_code(200); // Confirmar recepción a Mercado Pago
 ?>
