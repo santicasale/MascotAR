@@ -860,6 +860,25 @@ footer {
 
 /* -------- LOGIN -------- */
 
+.login-box {
+  background: #fff;
+  border-radius: 15px;
+  padding: 40px 30px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  text-align: center;
+  width: 320px;
+}
+
+
+.login-container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  height: 100vh;           /* Ocupa toda la altura de la ventana */
+  background: linear-gradient(180deg, #f15a29, #fbb03b);
+}
+
+
 .login-submenu {
   text-align: center;
 }
@@ -867,7 +886,8 @@ footer {
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center; /* Centra los inputs dentro del cuadro */
+  gap: 12px;
 }
 
 .login-form h3 {
@@ -879,24 +899,36 @@ footer {
 }
 
 .login-form input {
-  padding: 10px;
+  display: block;
+  width: 90%;
+  margin: 5px auto;
+  padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
 }
 
 .login-form button {
-  padding: 10px;
-  background: #f15a29;
+  width: 80%;               /* Más ancho */
+  padding: 12px 0;          /* Alto más equilibrado */
+  background-color: #f15a29; /* Naranja principal */
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s;
+  margin-top: 10px;
 }
 
 .login-form button:hover {
-  background: #d94e22;
+  background-color: #d94e22; /* Tono más oscuro al pasar el mouse */
+}
+
+.login-form input:focus {
+  border-color: #f15a29;
 }
 
 /* Link registrarse */
@@ -1016,3 +1048,5 @@ button:hover {
   margin: 0 0 20px;
   color: white;
 } 
+
+

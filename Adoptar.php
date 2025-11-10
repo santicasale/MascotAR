@@ -53,11 +53,11 @@ session_start();
                 <a href="#"><i class="fas fa-user"></i></a>
                 <ul class="submenu login-submenu">
                   <li>
-                    <form class="login-form" action="login.php" method="post">
-                      <h3>Iniciar sesión</h3>
-                      <input type="email" name="email" placeholder="Ingrese su correo" required>
-                      <input type="password" name="pass" placeholder="Ingrese su contraseña" required>
-                      <button type="submit">Entrar</button>
+                    <form class="login-form" action="login.php" method="post" autocomplete="off">
+                       <h3>Iniciar sesión</h3>
+                       <input type="email" name="email" placeholder="Ingrese su correo" required autocomplete="off">
+                       <input type="password" name="pass" placeholder="Ingrese su contraseña" required autocomplete="off">
+                       <button type="submit">Entrar</button>
                     </form>
                     <p class="register-link">
                       ¿No tenés cuenta? <a href="registrarse.php">Registrate</a>

@@ -171,15 +171,7 @@ $result = $stmt_historial->get_result();
       <p>Nos encontramos en Pilar,<br>Provincia de Buenos Aires.</p>
     </div>
 
-    <div class="footer-section">
-      <h3>Consultas</h3>
-      <form action="procesar_consulta.php" method="post" class="footer-form">
-        <input type="text" name="name" placeholder="Tu nombre" required>
-        <input type="email" name="email" placeholder="Tu email" required>
-        <textarea name="msg" placeholder="Tu mensaje" required></textarea>
-        <button type="submit">Enviar</button>
-      </form>
-    </div>
+    
   </div>
 </footer>
 

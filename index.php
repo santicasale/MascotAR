@@ -56,12 +56,13 @@ session_start();
                 <a href="#"><i class="fas fa-user"></i></a>
                 <ul class="submenu login-submenu">
                   <li>
-                    <form class="login-form" action="login.php" method="post">
-                      <h3>Iniciar sesión</h3>
-                      <input type="email" name="email" placeholder="Ingrese su correo" required>
-                      <input type="password" name="pass" placeholder="Ingrese su contraseña" required>
-                      <button type="submit">Entrar</button>
+                    <form class="login-form" action="login.php" method="post" autocomplete="off">
+                       <h3>Iniciar sesión</h3>
+                       <input type="email" name="email" placeholder="Ingrese su correo" required autocomplete="off">
+                       <input type="password" name="pass" placeholder="Ingrese su contraseña" required autocomplete="off">
+                       <button type="submit">Entrar</button>
                     </form>
+
                     <p class="register-link">
                       ¿No tenés cuenta? <a href="registrarse.php">Registrate</a>
                     </p>
@@ -171,15 +172,7 @@ session_start();
         <p>Nos encontramos en Pilar,<br>Provincia de Buenos Aires.</p>
       </div>
 
-      <div class="footer-section">
-      <h3>Consultas</h3>
-      <form action="procesar_consulta.php" method="post" class="footer-form">
-        <input type="text" name="name" placeholder="Tu nombre" required>
-        <input type="email" name="email" placeholder="Tu email" required>
-        <textarea name="msg" placeholder="Tu mensaje" required></textarea>
-        <button type="submit">Enviar</button>
-      </form>
-    </div>
+      
     </div>
   </footer>
 
