@@ -23,6 +23,7 @@ email varchar(30) not null,
 birthday date not null,
 phone INT(10) not null,
 web ENUM('SÍ', 'NO') not null,
+admin ENUM('SÍ', 'NO') not null,
 PRIMARY KEY (id_user),
 CONSTRAINT user_acc UNIQUE (nick,email)
 );
@@ -142,6 +143,12 @@ adopt_status varchar(20) not null,
 PRIMARY KEY (id_adopt_status)
 );
 
+CREATE TABLE if not exists adopt_vivienda(
+id_vivienda INT not null AUTO_INCREMENT,
+tipo_vivienda varchar(30) not null,
+PRIMARY KEY (id_vivienda)
+);
+
 CREATE TABLE if not exists adopciones(
 id_adopt INT not null AUTO_INCREMENT,
 id_pet_adopt INT not null,
@@ -194,4 +201,10 @@ INSERT INTO mascota_estado (pet_status) VALUES
 ('RESERVADO'),
 ('ADOPTADO');
 
+INSERT INTO adopt_vivienda (tipo_vivienda) VALUES
+('Casa con patio'),
+('Casa sin patio'),
+('Departamento'),
+('Campo'),
+('Otro');
 
