@@ -1049,6 +1049,145 @@ button:hover {
   margin: 0 0 20px;
   color: white;
 } 
+/* Cambiar Contraseña */
+.cambiar-pass {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(180deg, #f15a29, #fbb03b);
+}
+
+.cambiar-pass-box {
+  background: #fff;
+  border-radius: 15px;
+  padding: 30px 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  text-align: center;
+  width: 450px;
+}
+
+.cambiar-pass-box h2 {
+  margin: 0 0 10px;
+  font-family: 'Amatic SC', cursive;
+  font-size: 22px;
+  color: #f15a29;
+}
+
+.cambiar-pass-box form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.cambiar-pass-box input {
+  display: block;
+  width: 90%;
+  margin: 5px auto;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+}
+
+.cambiar-pass-box input:focus {
+  border-color: #f15a29;
+}
+
+.cambiar-pass-box button {
+  width: 80%;
+  padding: 12px 0;
+  background-color: #f15a29;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+.cambiar-pass-box button:hover {
+  background-color: #d94e22;
+}
+/* Estilos para ingreso de mascotas */
+.full-form-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  align-items: center;
+}
+.form-grid label {
+  font-weight: 600;
+  color: #333;
+}
+.form-grid input,
+.form-grid select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #f15a29;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+}
+.form-grid h3 {
+  grid-column: span 2;
+  text-align: center;
+  color: #f15a29;
+  font-family: 'Amatic SC', cursive;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+.form-grid button {
+  grid-column: span 2;
+  justify-self: center;
+  background-color: #f15a29;
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 20px;
+}
+.form-grid button:hover {
+  background-color: #d94e22;
+}
+
+/* Estilos para ver consultas*/
+
+.respuesta-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid #ff9800;
+  border-radius: 5px;
+  resize: none;
+}
+
+.respuesta-button {
+  margin-top: 5px;
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
 /* noticias prensa */
 
