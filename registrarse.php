@@ -29,7 +29,7 @@ if (isset($_SESSION['nick'])) {
         <li>
           <a href="index.php#nosotros">Quiénes Somos</a>
           <ul class="submenu">
-            <li><a href="Prensa.php">Prensa</a></li>
+            <li><a href="prensa.html">Prensa</a></li>
           </ul>
         </li>
         <li><a href="donacion.php">Donar</a></li>
@@ -38,11 +38,11 @@ if (isset($_SESSION['nick'])) {
           <a href="#"><i class="fas fa-user"></i></a>
           <ul class="submenu login-submenu">
             <li>
-              <form class="login-form" action="login.php" method="post" autocomplete="off">
-                     <h3>Iniciar sesión</h3>
-                     <input type="email" name="email" placeholder="Ingrese su correo" required autocomplete="off">
-                     <input type="password" name="pass" placeholder="Ingrese su contraseña" required autocomplete="off">
-                     <button type="submit">Entrar</button>
+              <form class="login-form" action="login.php" method="post">
+                <h3>Iniciar sesión</h3>
+                <input type="email" name="email" placeholder="Ingrese su correo" required>
+                <input type="password" name="pass" placeholder="Ingrese su contraseña" required>
+                <button type="submit">Entrar</button>
               </form>
               <p class="register-link">
                 ¿No tenés cuenta? <a href="registrarse.php">Registrate</a>
@@ -61,14 +61,14 @@ if (isset($_SESSION['nick'])) {
       <h2>Crear cuenta</h2>
 
       <form action="registrar.php" method="post">
-        <input type="text" name="f_name" placeholder="Nombre" required>
-        <input type="text" name="l_name" placeholder="Apellido" required>
-        <input type="text" name="nick" placeholder="Nombre de usuario" required>
-        <input type="password" name="pass" placeholder="Contraseña" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="date" name="birthday" required>
-        <input type="text" name="phone" placeholder="Telefono" required>
-        <input type="text" name="domicilio" placeholder="domicilio" required>
+        <input type="text" name="f_name" placeholder="Nombre" required minlength="2" maxlength="25" pattern="[A-Za-z\s]{2,25}" title="Solo letras, de 2 a 25 caracteres.">
+        <input type="text" name="l_name"  placeholder="Apellido" required minlength="2" maxlength="50" pattern="[A-Za-z\s]{2,50}" title="Solo letras y espacios, de 2 a 50 caracteres.">
+        <input type="text" name="nick" placeholder="Nombre de usuario"  required  minlength="3"  maxlength="15" title="Nombre de usuario de 3 a 15 caracteres.">
+        <input type="password" name="pass" placeholder="Contraseña" required minlength="6" maxlength="15" title="Contraseña de 6 a 15 caracteres.">
+        <input type="email" name="email" placeholder="Email" required  minlength="6" maxlength="30" title="Email de 6 a 30 caracteres (incluyendo @).">
+        <input type="date"  name="birthday" required min="1925-01-01"  max="2012-12-31" title="Fecha de nacimiento entre 1925 y 2012.">
+        <input  type="tel"  name="phone"  placeholder="Telefono"  required  maxlength="10"  pattern="[0-9]{10}"title="Número de teléfono de exactamente 10 dígitos." >
+        <input type="text" name="domicilio"  placeholder="domicilio"  required>
         <button type="submit">Registrarme</button>
       </form>
 

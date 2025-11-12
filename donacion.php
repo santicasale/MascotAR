@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("conexion.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -54,11 +55,11 @@ session_start();
                 <a href="#"><i class="fas fa-user"></i></a>
                 <ul class="submenu login-submenu">
                   <li>
-                    <form class="login-form" action="login.php" method="post" autocomplete="off">
-                       <h3>Iniciar sesión</h3>
-                       <input type="email" name="email" placeholder="Ingrese su correo" required autocomplete="off">
-                       <input type="password" name="pass" placeholder="Ingrese su contraseña" required autocomplete="off">
-                       <button type="submit">Entrar</button>
+                    <form class="login-form" action="login.php" method="post">
+                      <h3>Iniciar sesión</h3>
+                      <input type="email" name="email" placeholder="Ingrese su correo" required>
+                      <input type="password" name="pass" placeholder="Ingrese su contraseña" required>
+                      <button type="submit">Entrar</button>
                     </form>
                     <p class="register-link">
                       ¿No tenés cuenta? <a href="registrarse.php">Registrate</a>
@@ -81,26 +82,24 @@ session_start();
         Te agradecemos desde ya tu voluntad de colaborar con nuestra misión 
         de encontrar hogares definitivos para nuestros rescatados, y también brindar un hogar digno a los que no tienen la suerte de ser adoptados. 
       </p>
-      <p><strong>Gracias a tu donación podemos mantener activa esta ONG ❤️</strong></p>
+      <p><strong>Gracias a tu donación podemos mantener activa esta ONG</strong></p>
 
       <div class="donar-grid">
         <!-- Formulario -->
         <div class="donar-form">
           <form id="donar-form" action="donar.php" method="post" enctype="multipart/form-data">
-            <input type="text" name="nombre" placeholder="Tu nombre" >
-            <input type="email" name="email" placeholder="Tu email" >
-            <input type="number" name="monto" id="monto" placeholder="Monto a donar" required>
-            
+            <input type="text" name="nombre" id="nombre" placeholder="Tu nombre" required minlength="2" maxlength="25"pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,25}"title="Solo letras (2 a 25 caracteres)">
+            <input type="email" name="email"  id="email"  placeholder="Tu correo electrónico" required minlength="6" maxlength="30" pattern="[A-Za-z0-9._%+-@-]{6,30}" title="Debe tener entre 6 y 30 caracteres válidos (A-Z, a-z, 0-9, @, ., -, _)" >
+            <input type="number" name="monto" id="monto" placeholder="Monto a donar" required min="0.01"  max="9999999999999.99" step="0.01" title="Debe ser un número decimal con hasta 2 decimales (1 a 15 dígitos)">
             <label for="alias"><strong>Alias para transferir:</strong></label>
             <div class="alias-box">
               <span>mascotar.donar</span>
               <img src="imagenesong/mp.webp" alt="Alias de transferencia">
             </div>
 
-            <label for="comprobante"><strong>Adjuntar comprobante de transferencia:</strong></label>
-            <input type="file" id="comprobante" name="comprobante" accept="image/*,application/pdf">
-            <p id="archivo-nombre"></p>
-
+            <label for="comprobante"><strong>Adjuntar comprobante de transferencia: <span style="color:red;">*</span></strong></label>
+              <input type="file" id="comprobante" name="comprobante" accept="application/pdf,image/png,image/jpeg,image/jpg,image/webp" required title="Debe adjuntar un PDF o imagen (PNG, JPEG, WebP) máximo 8MB como comprobante">
+              <p id="archivo-nombre"></p>
             <button type="submit">Donar Ahora</button>
           </form>
         </div>
@@ -137,13 +136,28 @@ session_start();
     // Mensaje de donación
     document.getElementById("donar-form").addEventListener("submit", function(event) {
       const monto = document.getElementById("monto").value;
+      const comprobante = document.getElementById("comprobante").files.length;
+      
       if (!monto || monto <= 0) {
         event.preventDefault();
-        mostrarMensaje("⚠️ Por favor ingresá un monto válido.");
-      } else {
-        mostrarMensaje("🐾 ¡Gracias por tu donación! Redirigiendo a Mercado Pago...");
-        // No bloqueamos el envío si el monto es válido
+        mostrarMensaje("Por favor ingresá un monto válido.");
+        return false;
       }
+      
+      if (comprobante === 0) {
+        event.preventDefault();
+        mostrarMensaje("Debes adjuntar un comprobante de transferencia.");
+        return false;
+      }
+      
+      const archivo = document.getElementById("comprobante").files[0];
+      if (archivo && archivo.size > 8 * 1024 * 1024) {
+        event.preventDefault();
+        mostrarMensaje("El archivo debe ser menor a 8MB.");
+        return false;
+      }
+      
+      mostrarMensaje("¡Gracias por tu donación! Procesando...");
     });
 
     function mostrarMensaje(texto) {

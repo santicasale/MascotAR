@@ -23,14 +23,14 @@ $sql = "
   WHERE a.id_user_adopt = ?
   ORDER BY a.id_adopt DESC
 ";
-$stmt_historial = $conn->prepare($sql);
-if (!$stmt_historial) {
+$historial = $conn->prepare($sql);
+if (!$historial) {
   die("Error en la consulta SQL: " . $conn->error);
 }
 
-$stmt_historial->bind_param("i", $id_usuario);
-$stmt_historial->execute();
-$result = $stmt_historial->get_result();
+$historial->bind_param("i", $id_usuario);
+$historial->execute();
+$result = $historial->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -162,7 +162,15 @@ $result = $stmt_historial->get_result();
       <p>Nos encontramos en Pilar,<br>Provincia de Buenos Aires.</p>
     </div>
 
-    
+    <div class="footer-section">
+      <h3>Consultas</h3>
+      <form action="procesar_consulta.php" method="post" class="footer-form">
+        <input type="text" name="name" placeholder="Tu nombre" required>
+        <input type="email" name="email" placeholder="Tu email" required>
+        <textarea name="msg" placeholder="Tu mensaje" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
   </div>
 </footer>
 
@@ -170,7 +178,7 @@ $result = $stmt_historial->get_result();
 </html>
 
 <?php
-$stmt_historial->close();
+$historial->close();
 $conn->close();
 ?>
 

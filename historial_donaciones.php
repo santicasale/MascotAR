@@ -1,16 +1,7 @@
 <?php
 session_start();
 
-// Conexión a la base de datos
-define('DB_HOST', 'sql111.infinityfree.com');
-define('DB_USER', 'if0_40132447');
-define('DB_PASS', '1zY0LORQz4gMI4');
-define('DB_NAME', 'if0_40132447_mascotar');
-
-$conexion = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
-}
+include 'conexion.php';
 
 // --- Verificar sesión ---
 if (!isset($_SESSION['email'])) {
@@ -30,14 +21,14 @@ $sql = "
   ORDER BY d.fecha DESC
 ";
 
-$stmt_historial = $conexion->prepare($sql);
-if (!$stmt_historial) {
-  die("Error en la consulta SQL: " . $conexion->error);
+$historial = $conn->prepare($sql);
+if (!$historial) {
+  die("Error en la consulta SQL: " . $conn->error);
 }
 
-$stmt_historial->bind_param("s", $email_usuario);
-$stmt_historial->execute();
-$result = $stmt_historial->get_result();
+$historial->bind_param("s", $email_usuario);
+$historial->execute();
+$result = $historial->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -171,7 +162,15 @@ $result = $stmt_historial->get_result();
       <p>Nos encontramos en Pilar,<br>Provincia de Buenos Aires.</p>
     </div>
 
-    
+    <div class="footer-section">
+      <h3>Consultas</h3>
+      <form action="procesar_consulta.php" method="post" class="footer-form">
+        <input type="text" name="name" placeholder="Tu nombre" required>
+        <input type="email" name="email" placeholder="Tu email" required>
+        <textarea name="msg" placeholder="Tu mensaje" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
   </div>
 </footer>
 
@@ -179,6 +178,7 @@ $result = $stmt_historial->get_result();
 </html>
 
 <?php
-$stmt_historial->close();
-$conexion->close();
+$historial->close();
+$conn->close();
 ?>
+

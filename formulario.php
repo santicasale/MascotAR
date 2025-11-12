@@ -56,7 +56,7 @@ $result_vivienda = $conn->query($query_vivienda);
           <li>
             <a href="index.php#nosotros">Quiénes Somos</a>
             <ul class="submenu">
-              <li><a href="Prensa.html">Prensa</a></li>
+              <li><a href="prensa.html">Prensa</a></li>
             </ul>
           </li>
           <li><a href="donacion.php">Donar</a></li>
@@ -64,11 +64,11 @@ $result_vivienda = $conn->query($query_vivienda);
           <li><a href="adoptados.html">Adoptados</a></li>
           <?php if (isset($_SESSION['nick'])): ?>
             <li class="user-menu">
-              <!-- ✅ Usuario logueado -->
+              <!-- Usuario logueado -->
               <a href="#"><i class="fas fa-user"></i> Hola, <?php echo htmlspecialchars($_SESSION['nick']); ?></a>
               <ul class="submenu">
                 <?php if (!empty($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
-                  <!-- 🧠 Menú exclusivo para administradores -->
+                  <!-- Menú exclusivo para administradores -->
                   <li><a href="panel_admin.php">Panel de administración</a></li>
                   <li><a href="ver_usuarios.php">Gestión de usuarios</a></li>
                   <li><a href="ver_donaciones.php">Ver donaciones</a></li>
@@ -81,16 +81,16 @@ $result_vivienda = $conn->query($query_vivienda);
                 <li><a href="logout.php">Cerrar sesión</a></li>
               </ul>
             <?php else: ?>
-              <!-- 🔒 Usuario NO logueado -->
+              <!-- Usuario NO logueado -->
               <li class="user-menu">
                 <a href="#"><i class="fas fa-user"></i></a>
                 <ul class="submenu login-submenu">
                   <li>
-                    <form class="login-form" action="login.php" method="post" autocomplete="off">
-                       <h3>Iniciar sesión</h3>
-                       <input type="email" name="email" placeholder="Ingrese su correo" required autocomplete="off">
-                       <input type="password" name="pass" placeholder="Ingrese su contraseña" required autocomplete="off">
-                       <button type="submit">Entrar</button>
+                    <form class="login-form" action="login.php" method="post">
+                      <h3>Iniciar sesión</h3>
+                      <input type="email" name="email" placeholder="Ingrese su correo" required>
+                      <input type="password" name="pass" placeholder="Ingrese su contraseña" required>
+                      <button type="submit">Entrar</button>
                     </form>
                     <p class="register-link">
                       ¿No tenés cuenta? <a href="registrarse.php">Registrate</a>
@@ -160,7 +160,15 @@ $result_vivienda = $conn->query($query_vivienda);
         <p>Nos encontramos en Pilar,<br>Provincia de Buenos Aires.</p>
       </div>
 
-     
+      <div class="footer-section">
+      <h3>Consultas</h3>
+      <form action="procesar_consulta.php" method="post" class="footer-form">
+        <input type="text" name="name" placeholder="Tu nombre" required>
+        <input type="email" name="email" placeholder="Tu email" required>
+        <textarea name="msg" placeholder="Tu mensaje" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
     </div>
   </footer>
 

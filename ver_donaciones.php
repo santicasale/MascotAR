@@ -8,7 +8,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != "SÍ") {
     exit;
 }
 
-// LÓGICA DEL FILTRO (se mantiene igual)
+// LÓGICA DEL FILTRO 
 $filtro_de_estado = '';
 $tipo_de_estado = '';
 
@@ -17,23 +17,14 @@ if (isset($_GET['status']) && in_array($_GET['status'], ['1', '2'])) {
     $tipo_de_estado = " WHERE donacion_status = '" . $conn->real_escape_string($filtro_de_estado) . "'";
 }
 
-// Consulta SQL
-$sql = "SELECT id_donacion, monto, name, email, fecha, donacion_status, comprobante_mp
+// Consulta SQL - verificar si comprobante existe usando LENGTH para no cargar el BLOB completo
+$sql = "SELECT id_donacion, monto, name, email, fecha, donacion_status, 
+        CASE WHEN comprobante_mp IS NOT NULL AND LENGTH(comprobante_mp) > 0 THEN 1 ELSE 0 END as tiene_comprobante
         FROM donaciones " . $tipo_de_estado . " ORDER BY fecha DESC";
 
 $res = $conn->query($sql);
 if (!$res) {
     die("Error en la consulta SQL: " . $conn->error);
-}
-
-// Lógica para mostrar mensajes de estado (si viene de aprobar_donacion.php)
-$status_message = '';
-if (isset($_GET['action_status'])) {
-    if ($_GET['action_status'] == 'success') {
-        $status_message = '<p style="color: green; font-weight: bold; text-align: center;">Estado de donación actualizado a APROBADA (2).</p>';
-    } elseif ($_GET['action_status'] == 'error') {
-        $status_message = '<p style="color: red; font-weight: bold; text-align: center;">Error al actualizar el estado de la donación.</p>';
-    }
 }
 
 ?>
@@ -44,6 +35,18 @@ if (isset($_GET['action_status'])) {
     <title>Donaciones - MascotAR</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+        .aprobar { background-color: #4CAF50; } /* Verde */
+        .rechazar { background-color: #f44336; } /* Rojo */
+    </style>
 </head>
 <body>
 
@@ -53,8 +56,6 @@ if (isset($_GET['action_status'])) {
 
 <section class="about">
     <div class="about-container">
-        
-        <?php echo $status_message; // Muestra el mensaje de estado ?>
 
         <div style="text-align:center; margin-bottom: 20px;">
             <strong>Filtrar por Estado:</strong>
@@ -84,9 +85,9 @@ if (isset($_GET['action_status'])) {
                         <td><?php echo $row['fecha']; ?></td>
                         <td>
                             <?php 
-                            $comprobante_mp = htmlspecialchars($row['comprobante_mp']);
-                            if (!empty($comprobante_mp)) {
-                                echo '<a href="' . $comprobante_mp . '" target="_blank" style="color:blue;">Ver Comprobante</a>';
+                            // Verificar si hay comprobante usando el campo calculado
+                            if (isset($row['tiene_comprobante']) && $row['tiene_comprobante'] == 1) {
+                                echo '<a href="ver_comprobante.php?id=' . $row['id_donacion'] . '" target="_blank" style="color:blue; text-decoration:underline;">Ver Comprobante</a>';
                             } else {
                                 echo 'N/A';
                             }
@@ -95,12 +96,19 @@ if (isset($_GET['action_status'])) {
                         
                         <td>
                             <?php if ($row['donacion_status'] == 1): ?>
-                                <a class="btn" href="aprobar_donacion.php?id= <?php echo $row['id_donacion']; ?>" 
-                                   onclick="return confirm('¿Estás seguro de que deseas APROBAR esta donación?');">
-                                    Aprobar
-                                </a>
+                                <form method="POST" action="procesar_cambio_donacion.php" style="display:inline;">
+                                    <input type="hidden" name="id_donacion" value="<?php echo $row['id_donacion']; ?>">
+                                    <input type="hidden" name="accion" value="aprobar">
+                                    <button type="submit" class="btn aprobar" onclick="return confirm('¿Estás seguro de que deseas APROBAR esta donación?');">Aprobar</button>
+                                </form>
+
+                                <form method="POST" action="procesar_cambio_donacion.php" style="display:inline;">
+                                    <input type="hidden" name="id_donacion" value="<?php echo $row['id_donacion']; ?>">
+                                    <input type="hidden" name="accion" value="rechazar">
+                                    <button type="submit" class="btn rechazar" onclick="return confirm('¿Estás seguro de que deseas RECHAZAR esta donación?');">Rechazar</button>
+                                </form>
                             <?php else: ?>
-                                Aprobada
+                                <?php echo $row['donacion_status'] == 2 ? 'Aprobada' : ($row['donacion_status'] == 3 ? 'Rechazada' : 'Otro'); ?>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -114,6 +122,10 @@ if (isset($_GET['action_status'])) {
 
 <p style="text-align:center; margin:20px;">
     <a href="panel_admin.php" class="btn">⬅ Volver al panel</a>
+</p>
+
+</body>
+</html>
 </p>
 
 </body>

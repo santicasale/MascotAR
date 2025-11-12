@@ -20,60 +20,6 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != "SÍ") {
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    .full-form-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 30px;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      align-items: center;
-    }
-    .form-grid label {
-      font-weight: 600;
-      color: #333;
-    }
-    .form-grid input,
-    .form-grid select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #f15a29;
-      border-radius: 8px;
-      font-size: 14px;
-      font-family: 'Open Sans', sans-serif;
-    }
-    .form-grid h3 {
-      grid-column: span 2;
-      text-align: center;
-      color: #f15a29;
-      font-family: 'Amatic SC', cursive;
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
-    .form-grid button {
-      grid-column: span 2;
-      justify-self: center;
-      background-color: #f15a29;
-      color: #fff;
-      border: none;
-      padding: 15px 30px;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-      margin-top: 20px;
-    }
-    .form-grid button:hover {
-      background-color: #d94e22;
-    }
-  </style>
 </head>
 <body>
 
@@ -197,16 +143,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != "SÍ") {
       <!-- HISTORIAL MÉDICO -->
       <h3>Historial Médico</h3>
       <?php
-        $vacunas = [
-          'vax_moq' => 'Moquillo',
-          'vax_parvo' => 'Parvovirus',
-          'vax_rab' => 'Rabia',
-          'vax_lepto' => 'Leptospirosis',
-          'vax_hep' => 'Hepatitis',
-          'vax_rino' => 'Rinotraqueítis',
-          'vax_calci' => 'Calicivirus',
-          'vax_panleuc' => 'Panleucopenia'
-        ];
+        $vacunas = ['vax_moq' => 'Moquillo','vax_parvo' => 'Parvovirus','vax_rab' => 'Rabia','vax_lepto' => 'Leptospirosis','vax_hep' => 'Hepatitis','vax_rino' => 'Rinotraqueítis','vax_calci' => 'Calicivirus','vax_panleuc' => 'Panleucopenia'];
         foreach ($vacunas as $name => $label) {
           echo "<label>$label:</label>
                 <select name='$name' required>
