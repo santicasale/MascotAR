@@ -43,6 +43,7 @@ try {
     $mail->Subject = 'Respuesta a tu consulta - Mascotar';
     $mail->Body = "Hola,\n\nGracias por contactarnos. Esta es la respuesta a tu consulta:\n\n" . trim($_POST['respuesta']) . "\n\nAtentamente,\nEquipo de Mascotar";
     $mail->send();
+    $conn->query("DELETE FROM ask WHERE id_ask = $id_ask");
     echo "<script>alert('Respuesta enviada correctamente.'); window.location.href='ver_consultas.php';</script>";
 } catch (Exception $e) {
     echo "<script>alert('Error al enviar el email: {$mail->ErrorInfo}'); window.location.href='ver_consultas.php';</script>";
