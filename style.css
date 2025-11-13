@@ -1187,5 +1187,45 @@ button:hover {
   cursor: pointer;
   font-weight: bold;
 }
+/* noticias prensa */
 
+.contenido-noticia {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.contenido-noticia h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.imagen-noticia {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.contenido-noticia p {
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.btn-volver {
+  display: inline-block;
+  background-color: #f15a24;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.btn-volver:hover {
+  background-color: #d14b1c;
+}
 
