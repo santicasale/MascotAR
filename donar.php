@@ -12,7 +12,6 @@ if (!empty($_FILES['comprobante']['tmp_name'])) {
     $comprobanteData = addslashes(file_get_contents($_FILES['comprobante']['tmp_name']));
 }
 
-
 $tipo = $_FILES['comprobante']['type'];
 $permitidos = ['application/pdf', 'image/png', 'image/jpeg', 'image/webp'];
 if (!in_array($tipo, $permitidos)) {

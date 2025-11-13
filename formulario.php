@@ -44,7 +44,7 @@ $result_vivienda = $conn->query($query_vivienda);
 </head>
 <body>
 
-    <header>
+  <header>
     <div class="header-container">
       <div class="logo">
         <img src="imagenesong/logomascotar.png" alt="Logo MascotAR">
@@ -60,19 +60,25 @@ $result_vivienda = $conn->query($query_vivienda);
             </ul>
           </li>
           <li><a href="donacion.php">Donar</a></li>
-          <li><a href="Adoptar.php">Adoptar</a></li>
-          <li><a href="adoptados.html">Adoptados</a></li>
-          <?php if (isset($_SESSION['nick'])): ?>
+          <li>
+              <a href="adoptar.php">Adoptar</a>
+               <ul class="submenu">
+                   <li><a href="adoptados.php">Adoptados</a></li>
+              </ul>
+          </li>
+
+          <li class="user-menu">
+            <?php if (isset($_SESSION['nick'])): ?>
             <li class="user-menu">
               <!-- Usuario logueado -->
               <a href="#"><i class="fas fa-user"></i> Hola, <?php echo htmlspecialchars($_SESSION['nick']); ?></a>
               <ul class="submenu">
-                <?php if (!empty($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                  
+                <?php if (!empty($_SESSION['admin']) && $_SESSION['admin'] == "SÍ"): ?>
                   <!-- Menú exclusivo para administradores -->
-                  <li><a href="panel_admin.php">Panel de administración</a></li>
-                  <li><a href="ver_usuarios.php">Gestión de usuarios</a></li>
                   <li><a href="ver_donaciones.php">Ver donaciones</a></li>
                   <li><a href="ver_adopciones.php">Ver adopciones</a></li>
+                  <li><a href="ver_consultas.php">Ver Consultas</a></li>
                   <li><a href="ingreso_mascotas.php">Ingreso de mascotas</a></li>
                   <hr>
                 <?php endif; ?>
@@ -99,11 +105,11 @@ $result_vivienda = $conn->query($query_vivienda);
               </ul>
             </li>
           <?php endif; ?>
+          </li>
         </ul>
       </nav>
     </div>
   </header>
-
     <main>
         <div class="form-container">
             <h2>Formulario de Adopción</h2>

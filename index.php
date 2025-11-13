@@ -46,7 +46,6 @@ include("conexion.php");
                   
                 <?php if (!empty($_SESSION['admin']) && $_SESSION['admin'] == "SÍ"): ?>
                   <!-- Menú exclusivo para administradores -->
-                  <li><a href="ver_usuarios.php">Gestión de usuarios</a></li>
                   <li><a href="ver_donaciones.php">Ver donaciones</a></li>
                   <li><a href="ver_adopciones.php">Ver adopciones</a></li>
                   <li><a href="ver_consultas.php">Ver Consultas</a></li>

@@ -12,23 +12,30 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <img src="imagenesong/logomascotar.png" alt="Logo MascotAR">
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.php">Inicio</a></li>
-                    <li>
-                        <a href="index.php#nosotros">Quiénes Somos</a>
-                        <ul class="submenu">
-                            <li><a href="prensa.html">Prensa</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="donacion.php">Donar</a></li>
-                    <li><a href="Adoptar.php" class="active">Adoptar</a></li>
-                     <li class="user-menu">
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <img src="imagenesong/logomascotar.png" alt="Logo MascotAR">
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="index.php">Inicio</a></li>
+          <li>
+            <a href="index.php#nosotros">Quiénes Somos</a>
+            <ul class="submenu">
+              <li><a href="prensa.html">Prensa</a></li>
+            </ul>
+          </li>
+          <li><a href="donacion.php">Donar</a></li>
+          <li>
+              <a href="adoptar.php">Adoptar</a>
+               <ul class="submenu">
+                   <li><a href="adoptados.php">Adoptados</a></li>
+              </ul>
+          </li>
+
+          <li class="user-menu">
             <?php if (isset($_SESSION['nick'])): ?>
             <li class="user-menu">
               <!-- Usuario logueado -->
@@ -37,9 +44,9 @@ session_start();
                   
                 <?php if (!empty($_SESSION['admin']) && $_SESSION['admin'] == "SÍ"): ?>
                   <!-- Menú exclusivo para administradores -->
-                  <li><a href="ver_usuarios.php">Gestión de usuarios</a></li>
                   <li><a href="ver_donaciones.php">Ver donaciones</a></li>
                   <li><a href="ver_adopciones.php">Ver adopciones</a></li>
+                  <li><a href="ver_consultas.php">Ver Consultas</a></li>
                   <li><a href="ingreso_mascotas.php">Ingreso de mascotas</a></li>
                   <hr>
                 <?php endif; ?>
@@ -119,6 +126,7 @@ $query = "
     INNER JOIN mascotas_hist_medico ON mascotas.id_pet = mascotas_hist_medico.id_pet_med
     INNER JOIN mascotas_discapacidad ON mascotas.id_pet = mascotas_discapacidad.id_pet_disabl
     WHERE mascotas.pet_avail = 1
+    ORDER BY mascotas.ID_pet ASC
 ";
 
 $result = $conn->query($query);
@@ -176,10 +184,10 @@ while ($row = $result->fetch_assoc()) {
           </td>";
     
     // Discapacidad(es)
-    $discapacidades = [];
-    if (strtolower(trim($row['disabl_blind'])) === "sí") $discapacidades[] = "Ceguera";
-    if (strtolower(trim($row['disabl_deaf'])) === "sí") $discapacidades[] = "Audición";
-    if (strtolower(trim($row['disabl_limp'])) === "sí") $discapacidades[] = "Lisiado";
+    $discapacidades = [];  
+    if (htmlspecialchars(($row['disabl_blind'])) === "SÍ") $discapacidades[] = "Ceguera";  
+    if (htmlspecialchars(($row['disabl_deaf'])) === "SÍ") $discapacidades[] = "Audición";  
+    if (htmlspecialchars(($row['disabl_limp'])) === "SÍ") $discapacidades[] = "Lisiado";
 
     echo "<td>" . (count($discapacidades) > 0 ? implode(", ", $discapacidades) : "Ninguna") . "</td>";
 
