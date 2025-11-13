@@ -1,18 +1,6 @@
 CREATE DATABASE if not exists MascotAR;
 USE MascotAR;
 
-CREATE TABLE if not exists admin(
-id_admin INT not null AUTO_INCREMENT,
-f_name varchar(25) not null,
-l_name varchar(50) not null,
-nick varchar(20) not null,
-pass varchar(15) not null,
-email varchar(30) not null,
-birthday date not null,
-PRIMARY KEY (id_admin),
-CONSTRAINT admin_acc UNIQUE (nick,email)
-);
-
 CREATE TABLE if not exists usuario(
 id_user INT not null AUTO_INCREMENT,
 f_name varchar(25) not null,
@@ -22,7 +10,7 @@ pass varchar(15) not null,
 email varchar(30) not null,
 birthday date not null,
 phone INT(10) not null,
-web ENUM('SÍ', 'NO') not null,
+admin ENUM('SÍ', 'NO') not null,
 PRIMARY KEY (id_user),
 CONSTRAINT user_acc UNIQUE (nick,email)
 );
@@ -131,7 +119,7 @@ name varchar(75),
 email varchar(30),
 fecha date not null DEFAULT CURRENT_DATE(),
 donacion_status INT not null DEFAULT '1',
-comprobante_mp BLOB,
+comprobante_mp LONGBLOB,
 PRIMARY KEY (id_donacion),
 FOREIGN KEY (donacion_status) REFERENCES donacion_estado(ID_don_status)
 );
@@ -142,15 +130,24 @@ adopt_status varchar(20) not null,
 PRIMARY KEY (id_adopt_status)
 );
 
-CREATE TABLE if not exists adopciones(
-id_adopt INT not null AUTO_INCREMENT,
-id_pet_adopt INT not null,
-id_user_adopt INT not null,
-user_address varchar(200) not null,
-adopcion_status INT not null DEFAULT '1',
+CREATE TABLE if not exists adopt_vivienda(
+id_vivienda INT not null AUTO_INCREMENT,
+tipo_vivienda varchar(30) not null,
+PRIMARY KEY (id_vivienda)
+);
+
+CREATE TABLE IF NOT EXISTS adopciones (
+id_adopt INT NOT NULL AUTO_INCREMENT,
+id_pet_adopt INT NOT NULL,
+id_user_adopt INT NOT NULL,
+motivo TEXT NOT NULL,
+mascotas_previas ENUM('SÍ', 'NO') NOT NULL,
+adopcion_status INT NOT NULL DEFAULT '1',
+id_vivienda INT NOT NULL,
 PRIMARY KEY (id_adopt),
 FOREIGN KEY (id_pet_adopt) REFERENCES mascotas(ID_pet),
 FOREIGN KEY (id_user_adopt) REFERENCES usuario(ID_user),
+FOREIGN KEY (id_vivienda) REFERENCES adopt_vivienda(ID_vivienda),
 FOREIGN KEY (adopcion_status) REFERENCES adopt_estado(ID_adopt_status)
 );
 
@@ -191,4 +188,9 @@ INSERT INTO mascota_estado (pet_status) VALUES
 ('RESERVADO'),
 ('ADOPTADO');
 
-
+INSERT INTO adopt_vivienda (tipo_vivienda) VALUES
+('Casa con patio'),
+('Casa sin patio'),
+('Departamento'),
+('Campo'),
+('Otro');
