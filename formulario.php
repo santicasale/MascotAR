@@ -56,7 +56,7 @@ $result_vivienda = $conn->query($query_vivienda);
           <li>
             <a href="index.php#nosotros">Quiénes Somos</a>
             <ul class="submenu">
-              <li><a href="prensa.html">Prensa</a></li>
+              <li><a href="prensa.php">Prensa</a></li>
             </ul>
           </li>
           <li><a href="donacion.php">Donar</a></li>

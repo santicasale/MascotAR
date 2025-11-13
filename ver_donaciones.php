@@ -63,7 +63,7 @@ if (!$res) {
           <li>
             <a href="index.php#nosotros">Quiénes Somos</a>
             <ul class="submenu">
-              <li><a href="prensa.html">Prensa</a></li>
+              <li><a href="prensa.php">Prensa</a></li>
             </ul>
           </li>
           <li><a href="donacion.php">Donar</a></li>
@@ -160,13 +160,13 @@ if (!$res) {
                         
                         <td>
                             <?php if ($row['donacion_status'] == 1): ?>
-                                <form method="POST" action="procesar_estado.php" style="display:inline;">
+                                <form method="POST" action="procesar_cambio_donacion.php" style="display:inline;">
                                     <input type="hidden" name="id_donacion" value="<?php echo $row['id_donacion']; ?>">
                                     <input type="hidden" name="accion" value="aprobar">
                                     <button type="submit" class="btn aprobar" onclick="return confirm('¿Estás seguro de que deseas APROBAR esta donación?');">Aprobar</button>
                                 </form>
 
-                                <form method="POST" action="procesar_estado.php" style="display:inline;">
+                                <form method="POST" action="procesar_cambio_donacion.php" style="display:inline;">
                                     <input type="hidden" name="id_donacion" value="<?php echo $row['id_donacion']; ?>">
                                     <input type="hidden" name="accion" value="rechazar">
                                     <button type="submit" class="btn rechazar" onclick="return confirm('¿Estás seguro de que deseas RECHAZAR esta donación?');">Rechazar</button>

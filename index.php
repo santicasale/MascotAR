@@ -26,7 +26,7 @@ include("conexion.php");
           <li>
             <a href="index.php#nosotros">Quiénes Somos</a>
             <ul class="submenu">
-              <li><a href="prensa.html">Prensa</a></li>
+              <li><a href="prensa.php">Prensa</a></li>
             </ul>
           </li>
           <li><a href="donacion.php">Donar</a></li>
@@ -98,7 +98,7 @@ include("conexion.php");
           <h1>Bienvenidos a MascotAR</h1>
           <p>Rescatamos, ayudamos y damos en adopción.<br>
           Súmate a nuestra misión de darles una segunda oportunidad.</p>
-          <a href="Adoptar.html" class="btn">Quiero Adoptar</a>
+          <a href="adoptar.php" class="btn">Quiero Adoptar</a>
         <?php endif; ?>
       </div>
     </div>

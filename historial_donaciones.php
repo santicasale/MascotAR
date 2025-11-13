@@ -55,7 +55,7 @@ $result = $stmt_historial->get_result();
           <li>
             <a href="index.php#nosotros">Quiénes Somos</a>
             <ul class="submenu">
-              <li><a href="Prensa.html">Prensa</a></li>
+              <li><a href="prensa.php">Prensa</a></li>
             </ul>
           </li>
           <li><a href="donacion.php">Donar</a></li>
