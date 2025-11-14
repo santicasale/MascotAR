@@ -20,7 +20,6 @@ $email    = $_POST['email'];
 $birthday = $_POST['birthday'];
 $phone    = $_POST['phone'];
 $domicilio = $_POST['domicilio'];
-$web = 'SÍ';
 $admin = 'NO';
 
 // Verificar si el email o nick ya existen
@@ -35,8 +34,8 @@ if ($result->num_rows > 0) {
           </script>";
 } else {
     // Registro de nuevo usuario
-    $sql = "INSERT INTO usuario (f_name, l_name, nick, pass, email, birthday, phone, domicilio, web, admin)
-            VALUES ('$f_name', '$l_name', '$nick', '$pass', '$email', '$birthday', '$phone', '$domicilio', '$web', '$admin')";
+    $sql = "INSERT INTO usuario (f_name, l_name, nick, pass, email, birthday, phone, domicilio, admin)
+            VALUES ('$f_name', '$l_name', '$nick', '$pass', '$email', '$birthday', '$phone', '$domicilio','$admin')";
 
     if ($conn->query($sql) === TRUE) {
         $mail = new PHPMailer(true);
@@ -67,7 +66,6 @@ if ($result->num_rows > 0) {
 
             // Enviar correo
             $mail->send();
-
             echo "<script>
                     alert('Usuario registrado correctamente. Se envió un correo de bienvenida.');
                     window.location.href='index.php';
