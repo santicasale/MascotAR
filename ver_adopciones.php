@@ -28,11 +28,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id_adopt'], $_POST['a
     $conn->query($sql_update_adopcion);
 
     if ($accion === "aprobar") {
-        // pet_avail = 3 (no disponible)
+        // pet_avail = 3 
         $sql_update_pet = "
             UPDATE mascotas m
             INNER JOIN adopciones a ON m.id_pet = a.id_pet_adopt
             SET m.pet_avail = 3
+            WHERE a.id_adopt = $id_adopt;
+        ";
+        $conn->query($sql_update_pet);
+    }
+    if ($accion === "rechazar") {
+        $sql_update_pet = "
+            UPDATE mascotas m
+            INNER JOIN adopciones a ON m.id_pet = a.id_pet_adopt
+            SET m.pet_avail = 1
             WHERE a.id_adopt = $id_adopt;
         ";
         $conn->query($sql_update_pet);
