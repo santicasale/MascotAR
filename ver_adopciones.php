@@ -9,11 +9,11 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != "SÍ") {
 
 // Si se envió acción (aprobar o rechazar)
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id_adopt'], $_POST['accion'])) {
-    // 1. Obtener y sanitizar datos (¡Sanitizar es vital aquí!)
+    // Obtener datos 
     $id_adopt = intval($_POST['id_adopt']);
     $accion = $_POST['accion'];
 
-    // 2. Determinar el nuevo estado
+    // Determinar el nuevo estado
     $nuevo_estado = 0;
 
     if ($accion === "aprobar") {
@@ -28,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id_adopt'], $_POST['a
     $conn->query($sql_update_adopcion);
 
     if ($accion === "aprobar") {
-        // pet_avail = 3 
         $sql_update_pet = "
             UPDATE mascotas m
             INNER JOIN adopciones a ON m.id_pet = a.id_pet_adopt
