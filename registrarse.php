@@ -35,7 +35,7 @@ if (isset($_SESSION['nick'])) {
         <li><a href="donacion.php">Donar</a></li>
         <li><a href="Adoptar.php">Adoptar</a></li>
         <li class="user-menu">
-          <a href="#"><i class="fas fa-user"></i></a>
+          <a href="#"><i class="fas fa-user"></i> Ingresar</a>
           <ul class="submenu login-submenu">
             <li>
               <form class="login-form" action="login.php" method="post">

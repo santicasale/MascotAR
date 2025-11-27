@@ -153,7 +153,7 @@ $res = $conn->query($sql);
             <?php else: ?>
               <!-- Usuario NO logueado -->
               <li class="user-menu">
-                <a href="#"><i class="fas fa-user"></i></a>
+                <a href="#"><i class="fas fa-user"></i> Ingresar</a>
                 <ul class="submenu login-submenu">
                   <li>
                     <form class="login-form" action="login.php" method="post">
