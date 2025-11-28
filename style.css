@@ -1187,6 +1187,7 @@ button:hover {
   cursor: pointer;
   font-weight: bold;
 }
+
 /* noticias prensa */
 
 .contenido-noticia {
@@ -1229,40 +1230,6 @@ button:hover {
   background-color: #d14b1c;
 }
 
-
-
-.login-submenu {
-  right: 0;
-  left: auto;
-}
-
-
-.login-submenu .login-form input,
-.login-submenu .login-form button {
-    width: 100%;
-    
-    margin-left: 0;
-    margin-right: 0;
-    
-    box-sizing: border-box;
-}
-
-
-.login-submenu .login-form button {
-    width: 100%; 
-}
-
-
-@media (max-width: 768px) {
-    .login-submenu {
-        right: 10px; 
-        left: auto;
-        width: 90vw; 
-        max-width: 350px; 
-        box-sizing: border-box;
-    }
-}
-
 /*tablas*/
 .table {
   width: 90% !important;
@@ -1297,8 +1264,8 @@ button:hover {
   border-radius: 5px;
   font-size: 0.9rem;
   cursor: pointer;
+  text-decoration: none;
 }
-
 .btn-warning {
   background-color: #ffc107;
   color: black;
@@ -1368,6 +1335,3 @@ button:hover {
 .main-menu li:hover a {
   color: #ff6b33;
 }
-
-
-

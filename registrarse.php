@@ -17,44 +17,7 @@ if (isset($_SESSION['nick'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
-<header>
-  <div class="header-container">
-    <div class="logo">
-      <img src="imagenesong/logomascotar.png" alt="Logo MascotAR">
-    </div>
-    <nav>
-      <ul>
-        <li><a href="index.php">Inicio</a></li>
-        <li>
-          <a href="index.php#nosotros">Quiénes Somos</a>
-          <ul class="submenu">
-            <li><a href="prensa.php">Prensa</a></li>
-          </ul>
-        </li>
-        <li><a href="donacion.php">Donar</a></li>
-        <li><a href="Adoptar.php">Adoptar</a></li>
-        <li class="user-menu">
-          <a href="#"><i class="fas fa-user"></i> Ingresar</a>
-          <ul class="submenu login-submenu">
-            <li>
-              <form class="login-form" action="login.php" method="post">
-                <h3>Iniciar sesión</h3>
-                <input type="email" name="email" placeholder="Ingrese su correo" required>
-                <input type="password" name="pass" placeholder="Ingrese su contraseña" required>
-                <button type="submit">Entrar</button>
-              </form>
-              <p class="register-link">
-                ¿No tenés cuenta? <a href="registrarse.php">Registrate</a>
-              </p>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
+<?php include("header.php"); ?>
 <section class="register">
   <div class="register-container">
     <div class="register-form">
@@ -81,35 +44,6 @@ if (isset($_SESSION['nick'])) {
   </div>
 </section>
 
-<footer>
-  <div class="footer-container">
-    <div class="footer-logo">
-      <img src="imagenesong/logomascotar.png" alt="Logo MascotAR">
-    </div>
-
-    <div class="footer-section">
-      <h3>Contactos</h3>
-      <p><strong>Junta Directiva:</strong> Juan Pérez</p>
-      <p><strong>Tel:</strong> 11 8822 8844</p>
-      <p><strong>Email:</strong> info@mascotar.ong</p>
-    </div>
-
-    <div class="footer-section">
-      <h3>Dónde estamos</h3>
-      <p>Nos encontramos en Pilar,<br>Provincia de Buenos Aires.</p>
-    </div>
-
-   <div class="footer-section">
-      <h3>Consultas</h3>
-      <form action="procesar_consulta.php" method="post" class="footer-form">
-        <input type="text" name="name" placeholder="Tu nombre" required>
-        <input type="email" name="email" placeholder="Tu email" required>
-        <textarea name="msg" placeholder="Tu mensaje" required></textarea>
-        <button type="submit">Enviar</button>
-      </form>
-    </div>
-  </div>
-</footer>
-
+<?php include("footer.php"); ?>
 </body>
 </html>
