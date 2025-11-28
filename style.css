@@ -1232,10 +1232,8 @@ button:hover {
 
 
 .login-submenu {
-   
-    right: 0;
-    
-    left: auto;
+  right: 0;
+  left: auto;
 }
 
 
@@ -1263,6 +1261,112 @@ button:hover {
         max-width: 350px; 
         box-sizing: border-box;
     }
+}
+
+/*tablas*/
+.table {
+  width: 90% !important;
+  margin: auto;
+  border-collapse: collapse;
+  border-spacing: 0 8px;
+  font-family: Arial, sans-serif;
+}
+
+.table th, .table td {
+  padding: 12px 15px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.table thead th {
+  background-color: #343a40;
+  color: white;
+  border-radius: 8px;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.btn-table {
+  padding: 6px 12px;
+  margin: 0 2px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: black;
+  border: none;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white ;
+  border: none ;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+
+/* panel index*/
+.admin-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+.admin-container h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+.main-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 15px;
+}
+
+.main-menu li {
+  background: #ffffff;
+  border: 2px solid #f18849;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.main-menu li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+}
+
+.main-menu a {
+  display: block;
+  padding: 14px 18px;
+  text-decoration: none;
+  color: #d9531e;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.25s ease;
+}
+
+.main-menu li:hover a {
+  color: #ff6b33;
 }
 
 
