@@ -6,9 +6,16 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != "SÍ"){
   echo "<script>alert('Acceso denegado.'); window.location.href='index.php';</script>";
   exit;
 }
-
-$sql = "SELECT d.*,e.don_status AS estado_nombre FROM donaciones d LEFT JOIN donacion_estado e ON d.donacion_status = e.id_don_status ORDER BY d.id_donacion DESC";
-$res = $conn->query($sql);
+$email_usuario = $_SESSION['email'];
+$sql = " SELECT d.id_donacion, d.monto, d.fecha, e.don_status, d.comprobante_mp
+  FROM donaciones d
+  INNER JOIN donacion_estado e ON d.donacion_status = e.id_don_status
+  WHERE d.email = ?
+  ORDER BY d.fecha DESC, d.id_donacion DESC";
+$historial = $conn->prepare($sql);
+$historial->bind_param("s", $email_usuario);
+$historial->execute();
+$res = $historial->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -89,45 +96,42 @@ $res = $conn->query($sql);
     </div>
   </header>
 
-<section >
-  <div>
-    <h2>tabla de estado de adopciones</h2> 
+<section class="about">
+  <div class="ver-admin-container">
+    <h2>tabla de Usuarios</h2> 
     <?php if ($res->num_rows > 0): ?>
-      <table border="1" cellpadding="10" cellspacing="0" style="margin:auto; background:white; border-collapse:collapse; width:90%;">
-        <tr style="background-color:#ffcc80;">
+      <table border="1" cellpadding="10" cellspacing="0"style="margin:auto; background:white; border-collapse:collapse; width:90%; font-family:Open Sans;">
+        <tr style="background-color:#ffcc80; text-align:center;">
           <th>ID</th>
-          <th>Monto</th>
-          <th>Nombre</th>
-          <th>Email</th>
           <th>Fecha</th>
+          <th>Monto</th>
           <th>Estado</th>
           <th>Comprobante</th>
           <th>Acciones</th>
         </tr>
         <?php while ($row = $res->fetch_assoc()): ?>
-          <tr>
-           <td><?= $row['id_donacion'] ?></td>
-            <td>$<?= number_format($row['monto'], 2) ?></td>
-            <td><?= $row['name'] ?></td>
-            <td><?= $row['email'] ?></td>
-            <td><?= $row['fecha'] ?></td>
-            <td><?= $row['estado_nombre'] ?></td>
-            <td>
-                <?php if (!empty($row['comprobante_mp'])): ?>
-                    <a href="../ver_comprobante.php?id=<?= $row['id_donacion'] ?>" class="btn btn-sm btn-info">Ver</a>
-                <?php else: ?>
-                    -
-                <?php endif; ?>
-            </td>
-            <td>
-              <a href="editar_donacion.php?id=<?= $row['id_donacion'] ?>" class="btn btn-warning btn-sm">Editar</a>
-              <a href="eliminar_donacion.php?id=<?= $row['id_donacion'] ?>" class="btn btn-danger btn-sm"onclick="return confirm('¿Eliminar donación?')">Eliminar</a>
-            </td>
-          </tr>
-        <?php endwhile; ?>
-      </table>
+          <tr style="text-align:center;">
+          <td><?= $row['id_donacion'] ?></td>
+          <td><?= htmlspecialchars($row['fecha']) ?></td>
+          <td>$ <?= htmlspecialchars($row['monto']) ?></td>
+          <td><?= htmlspecialchars($row['don_status']) ?></td>
+          <td>
+          <?php if (!empty($row['comprobante_mp'])): ?>
+            <a href="../ver_comprobante.php?id=<?= $row['id_donacion'] ?>" target="_blank" style="color:#0077cc;">Ver comprobante</a>
+            <?php else: ?>
+              -
+               <?php endif; ?>
+          </td>
+          <td>
+            <a href="editar_donacion_estado.php?id=<?= $row['id_donacion'] ?>" class="btn-table btn-warning" style="margin-right:5px;">Editar</a>
+            <a href="eliminar_donacion_estado.php?id=<?= $row['id_donacion'] ?>"  class="btn-table btn-danger">Eliminar</a>
+          </td>
+         </tr>
+         <?php endwhile; ?>
+
+        </table>
     <?php else: ?>
-      <p style="text-align:center;">No hay consultas registradas.</p>
+      <p style="text-align:center;">No hay estados de donaciones registradas.</p>
     <?php endif; ?>
   </div>
 </section>
@@ -138,3 +142,7 @@ $res = $conn->query($sql);
 
 </body>
 </html>
+<?php
+$historial->close();
+$conn->close();
+?>

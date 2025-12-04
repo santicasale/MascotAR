@@ -104,8 +104,8 @@ $res = $conn->query($sql);
                 <td><?php echo $row['id_pet_color']; ?></td>
                 <td><?php echo htmlspecialchars($row['pet_color']); ?></td>
                 <td>
-                    <a href="editar_color.php?id=<?php echo $row['id_pet_color'] ?>" class="btn btn-warning">Editar</a>
-                    <a href="elimina_color.php?id=<?php echo $row['id_pet_color'] ?>" class="btn btn-danger">Eliminar</a>
+                    <a href="editar_color.php?id=<?php echo $row['id_pet_color'] ?>" class="btn-table btn-warning">Editar</a>
+                    <a href="elimina_color.php?id=<?php echo $row['id_pet_color'] ?>" class="btn-table btn-danger">Eliminar</a>
                 </td>
             </tr>
             <?php endwhile; ?>

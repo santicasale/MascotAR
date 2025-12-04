@@ -141,8 +141,8 @@ $res= $conn->query($sql);
                 <td><?php echo $row['pet_status']; ?></td>
                 <td><?php echo $row['pet_photo']; ?></td>  
                 <td>
-                    <a href="editar_mascota?Id=<?php echo $row['ID_pet']; ?>" class="btn btn-warning">Editar</a>
-                    <a href="eliminar_mascota.php?Id=<?php echo $row['ID_pet']; ?>" class="btn btn-danger">Eliminar</a>
+                    <a href="editar_mascota?Id=<?php echo $row['ID_pet']; ?>" class="btn-table btn-warning">Editar</a>
+                    <a href="eliminar_mascota.php?Id=<?php echo $row['ID_pet']; ?>" class="btn-table btn-danger">Eliminar</a>
                 </td>
             </tr>
             <?php endwhile; ?>

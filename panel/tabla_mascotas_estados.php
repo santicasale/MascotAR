@@ -103,8 +103,8 @@ $res = $conn->query($sql);
                 <td><?php echo $row['id_pet_status']; ?></td>
                 <td><?php echo htmlspecialchars($row['pet_status']); ?></td>
                 <td>
-                    <a href="editar_mascota_estado.php?id=<?php echo $row['id_pet_status'] ?>" class="btn btn-warning">Editar</a>
-                    <a href="eliminar_mascota_estado.php?id=<?php echo $row['id_pet_status'] ?>" class="btn btn-danger">Eliminar</a>
+                    <a href="editar_mascota_estado.php?id=<?php echo $row['id_pet_status'] ?>" class="btn-table btn-warning">Editar</a>
+                    <a href="eliminar_mascota_estado.php?id=<?php echo $row['id_pet_status'] ?>" class="btn-table btn-danger">Eliminar</a>
                 </td>
             </tr>
             <?php endwhile; ?>

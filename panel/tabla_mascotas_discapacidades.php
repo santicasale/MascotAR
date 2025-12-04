@@ -108,8 +108,8 @@ $res = $conn->query($sql);
                 <td><?php echo $row['disabl_deaf'] ?></td>
                 <td><?php echo $row['disabl_limp'] ?></td>
                 <td>
-                    <a href="editar_mascota_disc.php?Id=<?php echo $row['id_pet_disabl']; ?>" class="btn btn-warning">Editar</a>
-                    <a href="eliminar_mascota_disc.php?Id=<?php echo $row['id_pet_disabl']; ?>" class="btn btn-danger">Eliminar</a>
+                    <a href="editar_mascota_disc.php?Id=<?php echo $row['id_pet_disabl']; ?>" class="btn-table btn-warning">Editar</a>
+                    <a href="eliminar_mascota_disc.php?Id=<?php echo $row['id_pet_disabl']; ?>" class="btn-table btn-danger">Eliminar</a>
                 </td>
             </tr>
             <?php endwhile; ?>

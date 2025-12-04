@@ -128,13 +128,8 @@ $res = $conn->query($sql);
             <td><?= $row['tipo_vivienda'] ?></td>
             <td><?= $row['mascotas_previas'] ?></td>
             <td>
-                <a href="editar_adopciones.php?id=<?= $row['id_adopt'] ?>" class="btn-table btn-warning btn-sm">Editar</a>
-
-                <a href="eliminar_adopciones.php?id=<?= $row['id_adopt'] ?>" 
-                   class="btn-table btn-danger btn-sm"
-                   onclick="return confirm('¿Seguro que deseas eliminar esta adopción?');">
-                    Eliminar
-                </a>
+                <a href="editar_adopciones.php?id=<?= $row['id_adopt'] ?>" class="btn-table btn-warning">Editar</a>
+                <a href="eliminar_adopciones.php?id=<?= $row['id_adopt'] ?>" class="btn-table btn-danger" onclick="return confirm('¿Seguro que deseas eliminar esta adopción?');">Eliminar</a>
             </td>
           </tr>
         <?php endwhile; ?>
