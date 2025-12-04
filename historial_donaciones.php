@@ -18,7 +18,7 @@ $sql = "
   FROM donaciones d
   INNER JOIN donacion_estado e ON d.donacion_status = e.id_don_status
   WHERE d.email = ?
-  ORDER BY d.fecha DESC
+  ORDER BY d.fecha DESC, d.id_donacion DESC
 ";
 
 $stmt_historial = $conn->prepare($sql);

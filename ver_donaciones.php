@@ -20,7 +20,7 @@ if (isset($_GET['status']) && in_array($_GET['status'], ['1', '2'])) {
 // Consulta SQL - verificar si comprobante existe usando LENGTH para no cargar el BLOB completo
 $sql = "SELECT id_donacion, monto, name, email, fecha, donacion_status, 
         CASE WHEN comprobante_mp IS NOT NULL AND LENGTH(comprobante_mp) > 0 THEN 1 ELSE 0 END as tiene_comprobante
-        FROM donaciones " . $tipo_de_estado . " ORDER BY fecha DESC";
+        FROM donaciones " . $tipo_de_estado . " ORDER BY fecha DESC, id_donacion DESC";
 
 $res = $conn->query($sql);
 if (!$res) {
