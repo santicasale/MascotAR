@@ -9,9 +9,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
-var_dump(class_exists('PHPMailer\PHPMailer\PHPMailer'));
-var_dump(class_exists('PHPMailer\PHPMailer\Exception'));
 include("conexion.php");
 
 $f_name   = $_POST['f_name'];
