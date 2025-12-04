@@ -1,7 +1,6 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
@@ -10,6 +9,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+
+var_dump(class_exists('PHPMailer\PHPMailer\PHPMailer'));
+var_dump(class_exists('PHPMailer\PHPMailer\Exception'));
 include("conexion.php");
 
 $f_name   = $_POST['f_name'];
@@ -23,19 +25,25 @@ $domicilio = $_POST['domicilio'];
 $admin = 'NO';
 
 // Verificar si el email o nick ya existen
+
 $check = "SELECT * FROM usuario WHERE email='$email' OR nick='$nick'";
 $result = $conn->query($check);
-
 if ($result->num_rows > 0) {
-
     echo "<script>
             alert('El correo o nombre de usuario ya están registrados.');
             window.history.back();
           </script>";
 } else {
     // Registro de nuevo usuario
-    $sql = "INSERT INTO usuario (f_name, l_name, nick, pass, email, birthday, phone, domicilio, admin)
-            VALUES ('$f_name', '$l_name', '$nick', '$pass', '$email', '$birthday', '$phone', '$domicilio','$admin')";
+    $sql = $conn->prepare(
+    "INSERT INTO usuario (f_name, l_name, nick, pass, email, birthday, phone, domicilio, admin)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+    $sql->bind_param("sssssssss", $f_name, $l_name, $nick, $pass, $email, $birthday, $phone, $domicilio, $admin);
+    if (!$sql->execute()) {
+        echo "<script>alert('Error al registrar usuario: " . $conn->error . "'); window.history.back(); </script>";
+        exit();
+    }
 
     if ($conn->query($sql) === TRUE) {
         $mail = new PHPMailer(true);
@@ -66,6 +74,7 @@ if ($result->num_rows > 0) {
 
             // Enviar correo
             $mail->send();
+
             echo "<script>
                     alert('Usuario registrado correctamente. Se envió un correo de bienvenida.');
                     window.location.href='index.php';

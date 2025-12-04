@@ -24,11 +24,12 @@ if (isset($_SESSION['nick'])) {
       <h2>Crear cuenta</h2>
 
       <form action="registrar.php" method="post">
-        <input type="text" name="f_name" placeholder="Nombre" required minlength="2" maxlength="25" pattern="[A-Za-z\s]{2,25}" title="Solo letras, de 2 a 25 caracteres.">
-        <input type="text" name="l_name"  placeholder="Apellido" required minlength="2" maxlength="50" pattern="[A-Za-z\s]{2,50}" title="Solo letras y espacios, de 2 a 50 caracteres.">
-        <input type="text" name="nick" placeholder="Nombre de usuario"  required  minlength="3"  maxlength="15" title="Nombre de usuario de 3 a 15 caracteres.">
+        <span style="color:red;">*</span>
+        <input type="text" name="f_name" placeholder="Nombre" required minlength="2" maxlength="25" pattern="[A-Za-z\u00C0-\u017F\s']{2,25}" title="Solo letras, tildes, apóstrofos y espacios, de 2 a 25 caracteres.">
+        <input type="text" name="l_name" placeholder="Apellido" required minlength="2" maxlength="50" pattern="[A-Za-z\u00C0-\u017F\s']{2,50}" title="Solo letras, tildes, apóstrofos y espacios, de 2 a 50 caracteres.">
+        <input type="text" name="nick" placeholder="Nombre de usuario" required minlength="3" maxlength="15" title="Nombre de usuario de 3 a 15 caracteres.">
         <input type="password" name="pass" placeholder="Contraseña" required minlength="6" maxlength="15" title="Contraseña de 6 a 15 caracteres.">
-        <input type="email" name="email" placeholder="Email" required  minlength="6" maxlength="30" title="Email de 6 a 30 caracteres (incluyendo @).">
+        <input type="email" name="email" placeholder="Email" required  minlength="6" maxlength="60" title="Email de 6 a 60 caracteres (incluyendo @).">
         <input type="date"  name="birthday" required min="1925-01-01"  max="2012-12-31" title="Fecha de nacimiento entre 1925 y 2012.">
         <input  type="tel"  name="phone"  placeholder="Telefono"  required  maxlength="10"  pattern="[0-9]{10}"title="Número de teléfono de exactamente 10 dígitos." >
         <input type="text" name="domicilio"  placeholder="domicilio"  required>

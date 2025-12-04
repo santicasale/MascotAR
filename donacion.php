@@ -28,8 +28,8 @@ include("conexion.php");
         <!-- Formulario -->
         <div class="donar-form">
           <form id="donar-form" action="donar.php" method="post" enctype="multipart/form-data">
-            <input type="text" name="nombre" id="nombre" placeholder="Tu nombre" required minlength="2" maxlength="25"pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,25}"title="Solo letras (2 a 25 caracteres)">
-            <input type="email" name="email"  id="email"  placeholder="Tu correo electrónico" required minlength="6" maxlength="30" pattern="[A-Za-z0-9._%+-@-]{6,30}" title="Debe tener entre 6 y 30 caracteres válidos (A-Z, a-z, 0-9, @, ., -, _)" >
+            <input type="text" name="nombre" id="nombre" placeholder="Tu nombre" required minlength="2" maxlength="70" pattern="[A-Za-z\u00C0-\u017F\s']{2,25}" title="Solo letras, tildes, apóstrofos y espacios, de 2 a 70 caracteres.">
+            <input type="email" name="email" placeholder="Email" required  minlength="6" maxlength="60" title="Email de 6 a 30 caracteres (incluyendo @).">
             <input type="number" name="monto" id="monto" placeholder="Monto a donar" required min="0.01"  max="9999999999999.99" step="0.01" title="Debe ser un número decimal con hasta 2 decimales (1 a 15 dígitos)">
             <label for="alias"><strong>Alias para transferir:</strong></label>
             <div class="alias-box">
