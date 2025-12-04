@@ -114,7 +114,7 @@ $res = $conn->query($sql);
             <td><?= $row['estado_nombre'] ?></td>
             <td>
                 <?php if (!empty($row['comprobante_mp'])): ?>
-                    <a href="ver_comprobante.php?id=<?= $row['id_donacion'] ?>" class="btn btn-sm btn-info">Ver</a>
+                    <a href="../ver_comprobante.php?id=<?= $row['id_donacion'] ?>" class="btn btn-sm btn-info">Ver</a>
                 <?php else: ?>
                     -
                 <?php endif; ?>
