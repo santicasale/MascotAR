@@ -7,7 +7,7 @@ f_name varchar(25) not null,
 l_name varchar(50) not null,
 nick varchar(20) not null,
 pass varchar(15) not null,
-email varchar(30) not null,
+email varchar(60) not null,
 birthday date not null,
 phone INT(10) not null,
 admin ENUM('SÍ', 'NO') not null,
@@ -15,18 +15,11 @@ PRIMARY KEY (id_user),
 CONSTRAINT user_acc UNIQUE (nick,email)
 );
 
-CREATE TABLE if not exists newsletter(
-id_newsl INT not null AUTO_INCREMENT,
-name varchar(50) not null,
-email varchar(30) not null,
-PRIMARY KEY (id_newsl),
-UNIQUE (email)
-);
 
 CREATE TABLE if not exists ask(
 id_ask INT not null AUTO_INCREMENT,
 name varchar(50) not null,
-email varchar(30) not null,
+email varchar(60) not null,
 msg varchar(500) not null,
 PRIMARY KEY (id_ask)
 );
@@ -116,7 +109,7 @@ CREATE TABLE if not exists donaciones(
 id_donacion INT not null AUTO_INCREMENT,
 monto decimal(15,2) not null,
 name varchar(75),
-email varchar(30),
+email varchar(60),
 fecha date not null DEFAULT CURRENT_DATE(),
 donacion_status INT not null DEFAULT '1',
 comprobante_mp LONGBLOB,
