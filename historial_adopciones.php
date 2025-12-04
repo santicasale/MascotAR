@@ -23,14 +23,14 @@ $sql = "
   WHERE a.id_user_adopt = ?
   ORDER BY a.id_adopt DESC
 ";
-$stmt_historial = $conn->prepare($sql);
-if (!$stmt_historial) {
+$historial = $conn->prepare($sql);
+if (!$historial) {
   die("Error en la consulta SQL: " . $conn->error);
 }
 
-$stmt_historial->bind_param("i", $id_usuario);
-$stmt_historial->execute();
-$result = $stmt_historial->get_result();
+$historial->bind_param("i", $id_usuario);
+$historial->execute();
+$result = $historial->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +93,7 @@ $result = $stmt_historial->get_result();
 </html>
 
 <?php
-$stmt_historial->close();
+$historial->close();
 $conn->close();
 ?>
 

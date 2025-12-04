@@ -22,13 +22,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $estado = $_POST['adopcion_status'];
     $vivienda = $_POST['id_vivienda'];
 
-    $stmt = $conn->prepare("
+    $sql = $conn->prepare("
         UPDATE adopciones
         SET id_pet_adopt=?, id_user_adopt=?, motivo=?, mascotas_previas=?, adopcion_status=?, id_vivienda=?
         WHERE id_adopt=?
     ");
-    $stmt->bind_param("iissiii", $pet, $user, $motivo, $previas, $estado, $vivienda, $id);
-    $stmt->execute();
+    $sql->bind_param("iissiii", $pet, $user, $motivo, $previas, $estado, $vivienda, $id);
+    $sql->execute();
 
     header("Location: index.php");
     exit();
