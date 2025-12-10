@@ -13,7 +13,7 @@ $res = $conn->query($sql);
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>ver consultas</title>
+  <title>Tabla-de-disponibilidad-mascota</title>
   <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../style.css">
@@ -90,7 +90,7 @@ $res = $conn->query($sql);
 
 <section class="about">
   <div class="ver-admin-container">
-    <h2>tabla de edades de mascotas</h2> 
+    <h2>tabla de estado de las mascotas</h2> 
     <?php if ($res->num_rows > 0): ?>
       <table border="1" cellpadding="10" cellspacing="0" style="margin:auto; background:white; border-collapse:collapse; width:90%;">
         <tr style="background-color:#ffcc80;">
@@ -103,8 +103,8 @@ $res = $conn->query($sql);
                 <td><?php echo $row['id_pet_status']; ?></td>
                 <td><?php echo htmlspecialchars($row['pet_status']); ?></td>
                 <td>
-                    <a href="editar_mascota_estado.php?id=<?php echo $row['id_pet_status'] ?>" class="btn-table btn-warning">Editar</a>
-                    <a href="eliminar_mascota_estado.php?id=<?php echo $row['id_pet_status'] ?>" class="btn-table btn-danger">Eliminar</a>
+                    <a href="editar_mascotas_estado.php?id=<?php echo $row['id_pet_status'] ?>" class="btn-table btn-warning">Editar</a>
+                    <a href="eliminar_mascotas_estado.php?id=<?php echo $row['id_pet_status'] ?>" class="btn-table btn-danger">Eliminar</a>
                 </td>
             </tr>
             <?php endwhile; ?>

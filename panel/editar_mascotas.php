@@ -1,133 +1,131 @@
-<!doctype html>
+<?php
+session_start();
+include("../conexion.php");
+
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] != "SÍ"){
+  echo "<script>alert('Acceso denegado.'); window.location.href='index.php';</script>";
+  exit;
+}
+
+$id = intval($_GET['Id']);
+
+$sql = $conn->query("SELECT * FROM mascotas WHERE ID_pet = $id");
+$data = $sql->fetch_assoc();
+
+$especies = $conn->query("SELECT id_pet_species, pet_species FROM mascota_especie");
+$sexos = $conn->query("SELECT id_pet_sex, pet_sex FROM mascota_sexo");
+$edades = $conn->query("SELECT id_pet_age, pet_age FROM mascota_edad");
+$colores = $conn->query("SELECT id_pet_color, pet_color FROM mascota_color");
+$estados = $conn->query("SELECT id_pet_status, pet_status FROM mascota_estado");
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    $name = $_POST['pet_name'];
+    $species = $_POST['pet_species'];
+    $breed = $_POST['pet_breed'];
+    $sex = $_POST['pet_sex'];
+    $age = $_POST['pet_age'];
+    $color1 = $_POST['pet_color1'];
+    $color2 = $_POST['pet_color2'] ?: NULL;
+    $photo = $_POST['pet_photo'];
+    $avail = $_POST['pet_avail'];
+
+    $sql = $conn->prepare("
+        UPDATE mascotas
+        SET pet_name=?, pet_species=?, pet_breed=?, pet_sex=?, pet_age=?, pet_color1=?, pet_color2=?, pet_photo=?, pet_avail=?
+        WHERE ID_pet=?
+    ");
+    $sql->bind_param("sisiiiissi", $name, $species, $breed, $sex, $age, $color1, $color2, $photo, $avail, $id);
+    $sql->execute();
+
+    header("Location: tabla_mascotas.php");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
   <title>Editar Mascota</title>
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
 </head>
 
 <body>
-  <h1 class="bg-black p-2 text-white text-center">Editar Mascota</h1>
+    <h1 class="p-2 text-white text-center" style="background-color: #f15a29;">Editar Mascota</h1>
+    <div class="container mt-3">
+        <form class="row" action="guardar_mascotas.php" method="POST">
+            <label>Nombre:</label>
+            <input type="text" name="pet_name" value="<?= $data['pet_name'] ?>" class="form-control mb-3" required>
 
-  <div class="container mt-3">
+            <label>Especie:</label>
+            <select name="pet_species" class="form-select mb-3" required>
+                <?php while ($e = $especies->fetch_assoc()) { ?>
+                    <option value="<?= $e['id_pet_species'] ?>" <?= $e['id_pet_species'] == $data['pet_species'] ? 'selected' : '' ?>>
+                        <?= $e['pet_species'] ?>
+                    </option>
+                <?php } ?>
+            </select>
 
-    <?php
-      include("../conexion.php");
+            <label>Raza:</label>
+            <input type="text" name="pet_breed" value="<?= $data['pet_breed'] ?>" class="form-control mb-3">
 
-      $id = $_GET['Id'];
+            <label>Sexo:</label>
+            <select name="pet_sex" class="form-select mb-3" required>
+                <?php while ($s = $sexos->fetch_assoc()) { ?>
+                    <option value="<?= $s['id_pet_sex'] ?>" <?= $s['id_pet_sex'] == $data['pet_sex'] ? 'selected' : '' ?>>
+                        <?= $s['pet_sex'] ?>
+                    </option>
+                <?php } ?>
+            </select>
 
-      // Traer datos actuales de la mascota
-      $sql = "SELECT * FROM mascotas WHERE id_pet = $id LIMIT 1";
-      $res = $conn->query($sql);
-      $row = $res->fetch_assoc();
-    ?>
+            <label>Edad:</label>
+            <select name="pet_age" class="form-select mb-3" required>
+                <?php while ($a = $edades->fetch_assoc()) { ?>
+                    <option value="<?= $a['id_pet_age'] ?>" <?= $a['id_pet_age'] == $data['pet_age'] ? 'selected' : '' ?>>
+                        <?= $a['pet_age'] ?>
+                    </option>
+                <?php } ?>
+            </select>
 
-    <form action="guardar_mascota.php" method="POST" enctype="multipart/form-data">
+            <label>Color 1:</label>
+            <select name="pet_color1" class="form-select mb-3" required>
+                <?php while ($c = $colores->fetch_assoc()) { ?>
+                    <option value="<?= $c['id_pet_color'] ?>" <?= $c['id_pet_color'] == $data['pet_color1'] ? 'selected' : '' ?>>
+                        <?= $c['pet_color'] ?>
+                    </option>
+                <?php } ?>
+            </select>
 
-      <!-- ID -->
-      <input type="hidden" name="id_pet" value="<?php echo $row['id_pet']; ?>">
+            <label>Color 2 (opcional):</label>
+            <select name="pet_color2" class="form-select mb-3">
+                <option value="">Ninguno</option>
+                <?php
+                $colores->data_seek(0); 
+                while ($c = $colores->fetch_assoc()) { ?>
+                    <option value="<?= $c['id_pet_color'] ?>" <?= $c['id_pet_color'] == $data['pet_color2'] ? 'selected' : '' ?>>
+                        <?= $c['pet_color'] ?>
+                    </option>
+                <?php } ?>
+            </select>
 
-      <label>Nombre</label>
-      <input type="text" class="form-control mb-3" name="pet_name" value="<?php echo $row['pet_name']; ?>" required>
+            <label>Link de la foto:</label>
+            <input type="url" name="pet_photo" value="<?= $data['pet_photo'] ?>" class="form-control mb-3" required>
 
-      <label>Raza</label>
-      <input type="text" class="form-control mb-3" name="pet_breed" value="<?php echo $row['pet_breed']; ?>">
-
-      <!-- Especie -->
-      <label>Especie</label>
-      <select name="pet_species" class="form-select mb-3" required>
-        <?php
-          $list = $conn->query("SELECT * FROM mascota_especie ORDER BY pet_species_name");
-          while ($opt = $list->fetch_assoc()) {
-            $sel = ($opt['ID_pet_species'] == $row['pet_species']) ? "selected" : "";
-            echo "<option value='{$opt['ID_pet_species']}' $sel>{$opt['pet_species_name']}</option>";
-          }
-        ?>
-      </select>
-
-      <!-- Sexo -->
-      <label>Sexo</label>
-      <select name="pet_sex" class="form-select mb-3" required>
-        <?php
-          $list = $conn->query("SELECT * FROM mascota_sexo");
-          while ($opt = $list->fetch_assoc()) {
-            $sel = ($opt['ID_pet_sex'] == $row['pet_sex']) ? "selected" : "";
-            echo "<option value='{$opt['ID_pet_sex']}' $sel>{$opt['pet_sex_name']}</option>";
-          }
-        ?>
-      </select>
-
-      <!-- Edad -->
-      <label>Edad</label>
-      <select name="pet_age" class="form-select mb-3" required>
-        <?php
-          $list = $conn->query("SELECT * FROM mascota_edad");
-          while ($opt = $list->fetch_assoc()) {
-            $sel = ($opt['ID_pet_age'] == $row['pet_age']) ? "selected" : "";
-            echo "<option value='{$opt['ID_pet_age']}' $sel>{$opt['pet_age_name']}</option>";
-          }
-        ?>
-      </select>
-
-      <!-- Color primario -->
-      <label>Color 1</label>
-      <select name="pet_color1" class="form-select mb-3" required>
-        <?php
-          $list = $conn->query("SELECT * FROM mascota_color");
-          while ($opt = $list->fetch_assoc()) {
-            $sel = ($opt['ID_pet_color'] == $row['pet_color1']) ? "selected" : "";
-            echo "<option value='{$opt['ID_pet_color']}' $sel>{$opt['pet_color_name']}</option>";
-          }
-        ?>
-      </select>
-
-      <!-- Color secundario -->
-      <label>Color 2</label>
-      <select name="pet_color2" class="form-select mb-3">
-        <option value="">--Sin color secundario--</option>
-        <?php
-          $list = $conn->query("SELECT * FROM mascota_color");
-          while ($opt = $list->fetch_assoc()) {
-            $sel = ($opt['ID_pet_color'] == $row['pet_color2']) ? "selected" : "";
-            echo "<option value='{$opt['ID_pet_color']}' $sel>{$opt['pet_color_name']}</option>";
-          }
-        ?>
-      </select>
-
-      <!-- Disponibilidad -->
-      <label>Estado (pet_avail)</label>
-      <select name="pet_avail" class="form-select mb-3" required>
-        <?php
-          $list = $conn->query("SELECT * FROM mascota_estado");
-          while ($opt = $list->fetch_assoc()) {
-            $sel = ($opt['ID_pet_status'] == $row['pet_avail']) ? "selected" : "";
-            echo "<option value='{$opt['ID_pet_status']}' $sel>{$opt['status_name']}</option>";
-          }
-        ?>
-      </select>
-
-      <!-- Foto -->
-      <label>Foto actual</label><br>
-      <?php if ($row['pet_photo']) { ?>
-        <img src="uploads/<?php echo $row['pet_photo']; ?>" width="150" class="mb-3">
-      <?php } else { echo "<p class='text-muted'>Sin foto</p>"; } ?>
-
-      <label>Cambiar foto</label>
-      <input type="file" name="pet_photo" class="form-control mb-3">
-
-      <div class="text-center">
-        <button type="submit" class="btn btn-danger">Grabar</button>
-        <a href="abmmascotas.php" class="btn btn-dark">Volver</a>
-      </div>
-
-    </form>
-
-  </div>
-
+            <label>Estado:</label>
+            <select name="pet_avail" class="form-select mb-3" required>
+                <?php while ($st = $estados->fetch_assoc()) { ?>
+                    <option value="<?= $st['id_pet_status'] ?>" <?= $st['id_pet_status'] == $data['pet_avail'] ? 'selected' : '' ?>>
+                        <?= $st['pet_status'] ?>
+                    </option>
+                <?php } ?>
+            </select>
+            <div class="text-center d-flex justify-content-center gap-3">
+                <button type="submit" class="btn btn-success mt-3">Guardar</button>
+                <a href="javascript:history.back()" class="btn btn-dark mt-3">Volver</a>
+            </div>
+        </form>
+    </div>
+    
 </body>
-
 </html>

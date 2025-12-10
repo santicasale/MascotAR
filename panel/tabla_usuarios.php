@@ -13,7 +13,7 @@ $res = $conn->query($sql);
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>ver consultas</title>
+  <title>Tabla-usuarios</title>
   <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../style.css">
@@ -115,8 +115,8 @@ $res = $conn->query($sql);
                 <td><?php echo $row['phone']; ?></td>
                 <td><?php echo $row['admin'] == "SÍ" ? "Administrador" : "Usuario"; ?></td>
                 <td>
-                    <a href="editar_usuario.php?id=<?php echo $row['id_user'] ?>" class="btn-table btn-warning">Editar</a>
-                    <a href="eliminar_usuario.php?id=<?php echo $row['id_user'] ?>" class="btn-table btn-danger">Eliminar</a>
+                    <a href="editar_usuarios.php?id=<?php echo $row['id_user'] ?>" class="btn-table btn-warning">Editar</a>
+                    <a href="eliminar_usuarios.php?id=<?php echo $row['id_user'] ?>" class="btn-table btn-danger">Eliminar</a>
                 </td>
             </tr>
             <?php endwhile; ?>

@@ -11,7 +11,7 @@
 
 <body>
 
-<h1 class="bg-dark p-2 text-white text-center">Historial Médico de Mascota</h1>
+<h1 class="p-2 text-white text-center" style="background-color: #f15a29;">Historial Médico de Mascota</h1>
 
 <div class="container mt-4">
 
@@ -20,12 +20,10 @@ include("../conexion.php");
 
 $id = $_GET['id'];
 
-// Obtener el historial
 $sql = "SELECT * FROM mascotas_hist_medico WHERE id_pet_med = $id LIMIT 1";
 $res = $conn->query($sql);
 $row = $res->fetch_assoc();
 
-// Si no existe historial aún, crear registro vacío
 if (!$row) {
     $conn->query("INSERT INTO mascotas_hist_medico (id_pet_med, vax_moq, vax_parvo, vax_rab, vax_lepto, vax_hep, vax_rino, vax_calci, vax_panleuc, neut, paras) 
                   VALUES ($id, 'NO','NO','NO','NO','NO','NO','NO','NO','NO','NO')");
@@ -45,9 +43,8 @@ function selectYN($campo, $valor) {
 }
 ?>
 
-<form action="guardar_historial.php" method="POST">
-
-    <input type="hidden" name="id_pet_med" value="<?php echo $id; ?>">
+<form action="guardar_mascotas_hist_medico.php" method="POST">
+  <input type="hidden" name="id_pet_med" value="<?php echo $id; ?>">
 
     <label>Vacuna Moquillo</label>
     <?php echo selectYN('vax_moq', $row['vax_moq']); ?>
@@ -79,11 +76,10 @@ function selectYN($campo, $valor) {
     <label>Desparasitado</label>
     <?php echo selectYN('paras', $row['paras']); ?>
 
-    <div class="text-center mt-4">
-        <button type="submit" class="btn btn-danger">Grabar</button>
-        <a href="../index.php" class="btn btn-dark">Volver</a>
-    </div>
-
+   <div class="text-center">
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a href="javascript:history.back()" class="btn btn-dark">Volver</a>
+  </div>
 </form>
 
 </div>

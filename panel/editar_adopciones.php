@@ -1,102 +1,71 @@
-<?php
-include("../conexion.php");
-
-$id = intval($_GET['id']);
-
-// Obtener datos actuales
-$sql = $conn->query("SELECT * FROM adopciones WHERE id_adopt = $id");
-$data = $sql->fetch_assoc();
-
-// Cargar selects
-$mascotas = $conn->query("SELECT id_pet, pet_name FROM mascotas");
-$usuarios = $conn->query("SELECT id_user, nick FROM usuario");
-$estados = $conn->query("SELECT id_adopt_status, adopt_status FROM adopt_estado");
-$viviendas = $conn->query("SELECT id_vivienda, tipo_vivienda FROM adopt_vivienda");
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-    $pet = $_POST['id_pet_adopt'];
-    $user = $_POST['id_user_adopt'];
-    $motivo = $_POST['motivo'];
-    $previas = $_POST['mascotas_previas'];
-    $estado = $_POST['adopcion_status'];
-    $vivienda = $_POST['id_vivienda'];
-
-    $sql = $conn->prepare("
-        UPDATE adopciones
-        SET id_pet_adopt=?, id_user_adopt=?, motivo=?, mascotas_previas=?, adopcion_status=?, id_vivienda=?
-        WHERE id_adopt=?
-    ");
-    $sql->bind_param("iissiii", $pet, $user, $motivo, $previas, $estado, $vivienda, $id);
-    $sql->execute();
-
-    header("Location: index.php");
-    exit();
-}
-?>
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <title>ver consultas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Editar Adopción</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body class="p-4">
+<body>
+  <h1 class="p-2 text-white text-center" style="background-color: #f15a29;">Editar Adopción</h1>
 
-<h2>Editar Adopción</h2>
+  <div class="container mt-3">
 
-<form method="POST">
-    <label>Mascota:</label>
-    <select name="id_pet_adopt" class="form-select mb-3">
-        <?php while ($m = $mascotas->fetch_assoc()) { ?>
-            <option value="<?= $m['id_pet'] ?>" <?= $m['id_pet'] == $data['id_pet_adopt'] ? 'selected' : '' ?>>
-                <?= $m['pet_name'] ?>
-            </option>
-        <?php } ?>
-    </select>
+    <?php
+      include("../conexion.php");
 
-    <label>Usuario:</label>
-    <select name="id_user_adopt" class="form-select mb-3">
-        <?php while ($u = $usuarios->fetch_assoc()) { ?>
-           <option value="<?= $u['id_user'] ?>" <?= $u['id_user'] == $data['id_user_adopt'] ? 'selected' : '' ?>>
-                <?= $u['nick'] ?>
-            </option>
-        <?php } ?>
-    </select>
+      $id = $_GET['id'];
 
-    <label>Motivo:</label>
-    <textarea name="motivo" class="form-control mb-3"><?= $data['motivo'] ?></textarea>
+      $sql = "SELECT * FROM adopciones WHERE id_adopt = $id LIMIT 1";
+      $res = $conn->query($sql);
+      $row = $res->fetch_assoc();
+      $estados = $conn->query("SELECT id_adopt_status, adopt_status FROM adopt_estado");
+      $viviendas = $conn->query("SELECT id_vivienda, tipo_vivienda FROM adopt_vivienda");
+    ?>
 
-    <label>Mascotas Previas:</label>
-    <select name="mascotas_previas" class="form-select mb-3">
-        <option value="SÍ" <?= $data['mascotas_previas'] == "SÍ" ? 'selected' : '' ?>>SÍ</option>
-        <option value="NO" <?= $data['mascotas_previas'] == "NO" ? 'selected' : '' ?>>NO</option>
-    </select>
+    <form class="row" action="guardar_adopciones.php" method="POST">
 
-    <label>Estado:</label>
-    <select name="adopcion_status" class="form-select mb-3">
+      <input type="hidden" name="id_adopt" value="<?php echo $row['id_adopt']; ?>">
+
+      <label class="mb-1">Estado de Adopción</label>
+      <select name="adopcion_status" class="form-select mb-3" required>
         <?php while ($e = $estados->fetch_assoc()) { ?>
-            <option value="<?= $e['id_adopt_status'] ?>" <?= $e['id_adopt_status'] == $data['adopcion_status'] ? 'selected' : '' ?>>
+            <option value="<?= $e['id_adopt_status'] ?>" <?= $e['id_adopt_status'] == $row['adopcion_status'] ? 'selected' : '' ?>>
                 <?= $e['adopt_status'] ?>
             </option>
         <?php } ?>
-    </select>
+      </select>
 
-    <label>Vivienda:</label>
-    <select name="id_vivienda" class="form-select mb-3">
+      <label class="mb-1">Tipo de Vivienda</label>
+      <select name="id_vivienda" class="form-select mb-3" required>
         <?php while ($v = $viviendas->fetch_assoc()) { ?>
-            <option value="<?= $v['id_vivienda'] ?>" <?= $v['id_vivienda'] == $data['id_vivienda'] ? 'selected' : '' ?>>
+            <option value="<?= $v['id_vivienda'] ?>" <?= $v['id_vivienda'] == $row['id_vivienda'] ? 'selected' : '' ?>>
                 <?= $v['tipo_vivienda'] ?>
             </option>
         <?php } ?>
-    </select>
+      </select>
 
-    <button class="btn btn-primary">Actualizar</button>
-</form>
+      <label class="mb-1">Motivo</label>
+      <textarea class="form-control mb-3" name="motivo" rows="3"><?php echo $row['motivo']; ?></textarea>
 
+      <label class="mb-1">Mascotas Previas</label>
+      <select name='mascotas_previas' class='form-select mb-3' required>
+        <option value='SÍ' $s1>SÍ</option>
+        <option value='NO' $s2>NO</option>
+      </select>
+      
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a href="javascript:history.back()" class="btn btn-dark">Volver</a>
+      </div>
+
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

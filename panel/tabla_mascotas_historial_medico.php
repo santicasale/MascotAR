@@ -122,8 +122,8 @@ $res = $conn->query($sql);
                 <td><?php echo $row['neut']; ?></td>
                 <td><?php echo $row['paras']; ?></td>
                 <td>
-                    <a href="editar_hist_medico.php?id=<?= $row['id_pet_med'] ?>" class="btn-table btn-warning ">Editar</a>
-                    <a href="eliminar_hist_medico.php?id=<?= $row['id_pet_med'] ?>" class="btn-table btn-danger "onclick="return confirm('¿Eliminar este historial?')">Eliminar</a>
+                    <a href="editar_mascotas_hist_medico.php?id=<?= $row['id_pet_med'] ?>" class="btn-table btn-warning ">Editar</a>
+                    <a href="eliminar_mascotas_hist_medico.php?id=<?= $row['id_pet_med'] ?>" class="btn-table btn-danger "onclick="return confirm('¿Eliminar este historial?')">Eliminar</a>
                 </td>
             </tr>
             <?php endwhile; ?>

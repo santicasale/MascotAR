@@ -160,7 +160,9 @@ INSERT INTO mascota_sexo (pet_sex) VALUES
 
 INSERT INTO mascota_especie (pet_species) VALUES
 ('PERRO'),
-('GATO');
+('GATO')
+('CANARIO')
+('TORTUGA');
 
 INSERT INTO  mascota_edad (pet_age) VALUES
 ('CACHORRO'),
