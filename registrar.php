@@ -4,11 +4,6 @@ use PHPMailer\PHPMailer\Exception;
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include("conexion.php");
 
 $f_name   = $_POST['f_name'];
@@ -21,17 +16,11 @@ $phone    = $_POST['phone'];
 $domicilio = $_POST['domicilio'];
 $admin = 'NO';
 
-// Verificar si el email o nick ya existen
-
 $check = "SELECT * FROM usuario WHERE email='$email' OR nick='$nick'";
 $result = $conn->query($check);
 if ($result->num_rows > 0) {
-    echo "<script>
-            alert('El correo o nombre de usuario ya están registrados.');
-            window.history.back();
-          </script>";
+    echo "<script>alert('El email o nombre de usuario ya están registrados.');window.history.back();</script>";
 } else {
-    // Registro de nuevo usuario
     $sql = $conn->prepare(
     "INSERT INTO usuario (f_name, l_name, nick, pass, email, birthday, phone, domicilio, admin)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
@@ -55,7 +44,6 @@ if ($result->num_rows > 0) {
             $mail->setFrom('mascotaresba@gmail.com', 'Mascotar');
             $mail->addAddress($email, $nick);
 
-            // Contenido del mensaje
             $mail->isHTML(true);
             $mail->Subject = 'Bienvenido a Mascotar';
             $mail->Body    = "
@@ -69,7 +57,6 @@ if ($result->num_rows > 0) {
                 <p>Gracias por formar parte de la comunidad Mascotar</p>
             ";
 
-            // Enviar correo
             $mail->send();
 
             echo "<script>
