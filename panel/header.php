@@ -7,7 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <header>
     <div class="header-container">
         <div class="logo">
-            <img src="/imagenesong/logomascotar.png" alt="Logo MascotAR">
+            <img src="/ONG/imagenesong/logomascotar.png" alt="Logo MascotAR">
         </div>
         <nav>
             <ul>

@@ -40,7 +40,7 @@ $res = $conn->query($sql);
             <td><?php echo htmlspecialchars($row['email']); ?></td>
             <td><?php echo htmlspecialchars($row['msg']); ?></td>
             <td>
-              <a href="eliminar_consulta.php?Id=<?php echo $row['id_ask']; ?>" class="btn-table btn-danger">Eliminar</a>
+              <a href="eliminar_consulta.php?id=<?php echo $row['id_ask']; ?>" class="btn-table btn-danger">Eliminar</a>
             </td>
           </tr>
         <?php endwhile; ?>

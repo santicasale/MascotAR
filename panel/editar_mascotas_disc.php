@@ -17,7 +17,7 @@
 <?php
 include("../conexion.php");
 
-$id = $_GET['Id'];
+$id = $_GET['id'];
 
 $sql = "SELECT * FROM mascotas_discapacidad WHERE id_pet_disabl = $id LIMIT 1";
 $res = $conn->query($sql);

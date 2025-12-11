@@ -8,7 +8,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != "SÍ") {
 }
 
 // Traer ID
-$id = intval($_GET['Id']);
+$id = intval($_GET['id']);
 
 $sql = $conn->query("SELECT * FROM mascotas WHERE ID_pet = $id");
 $data = $sql->fetch_assoc();

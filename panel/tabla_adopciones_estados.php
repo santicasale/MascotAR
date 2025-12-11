@@ -36,9 +36,9 @@ $res = $conn->query($sql);
             <td><?php echo $row['id_adopt_status']; ?></td>
             <td><?php echo htmlspecialchars($row['adopt_status']); ?></td>
             <td>
-              <a href="editar_adopciones_estado.php?Id=<?php echo $row['id_adopt_status']; ?>" class="btn-table btn-warning">Editar</a>
+              <a href="editar_adopciones_estado.php?id=<?php echo $row['id_adopt_status']; ?>" class="btn-table btn-warning">Editar</a>
 
-              <a href="eliminar_adopciones_estado.php?Id=<?php echo $row['id_adopt_status']; ?>" class="btn-table btn-danger">Eliminar</a>
+              <a href="eliminar_adopciones_estado.php?id=<?php echo $row['id_adopt_status']; ?>" class="btn-table btn-danger">Eliminar</a>
             </td>
           </tr>
         <?php endwhile; ?>

@@ -41,8 +41,8 @@ $res = $conn->query($sql);
                 <td><?php echo $row['disabl_deaf'] ?></td>
                 <td><?php echo $row['disabl_limp'] ?></td>
                 <td>
-                    <a href="editar_mascotas_disc.php?Id=<?php echo $row['id_pet_disabl']; ?>" class="btn-table btn-warning">Editar</a>
-                    <a href="eliminar_mascotas_disc.php?Id=<?php echo $row['id_pet_disabl']; ?>" class="btn-table btn-danger">Eliminar</a>
+                    <a href="editar_mascotas_disc.php?id=<?php echo $row['id_pet_disabl']; ?>" class="btn-table btn-warning">Editar</a>
+                    <a href="eliminar_mascotas_disc.php?id=<?php echo $row['id_pet_disabl']; ?>" class="btn-table btn-danger">Eliminar</a>
                 </td>
             </tr>
             <?php endwhile; ?>
