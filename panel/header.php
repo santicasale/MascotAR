@@ -28,8 +28,6 @@ if (session_status() === PHP_SESSION_NONE) {
                         <li><a href="../adoptados.php">Adoptados</a></li>
                     </ul>
                 </li>
-
-                <!-- Usuario -->
                 <li class="user-menu">
                 <?php if (isset($_SESSION['nick'])): ?>
                     <a href="#"><i class="fas fa-user"></i> Hola, <?= htmlspecialchars($_SESSION['nick']); ?></a>
@@ -37,7 +35,6 @@ if (session_status() === PHP_SESSION_NONE) {
                     <ul class="submenu">
 
                         <?php if (!empty($_SESSION['admin']) && $_SESSION['admin'] == "SÍ"): ?>
-                            <!-- Opciones solo admin -->
                              <li><a href="index.php">Ver Panel administrativo</a></li>
                             <li><a href="../ver_donaciones.php">Ver donaciones</a></li>
                             <li><a href="../ver_adopciones.php">Ver adopciones</a></li>
@@ -53,7 +50,6 @@ if (session_status() === PHP_SESSION_NONE) {
                     </ul>
 
                 <?php else: ?>
-                    <!-- Usuario NO logueado -->
                     <li class="user-menu">
                         <a href="#"><i class="fas fa-user"></i>Ingresar</a>
                         <ul class="submenu login-submenu">
