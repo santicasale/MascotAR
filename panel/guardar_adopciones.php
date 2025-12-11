@@ -15,7 +15,7 @@ $sql = "UPDATE adopciones SET
         WHERE id_adopt = $id_adopt";
 
 if ($conn->query($sql)) {
-    header("Location: index.php?status=success");
+    echo "<script>alert('Adopcion actualizada correctamente'); window.location='tabla_adopciones.php';</script>";
 } else {
     echo "Error al actualizar la adopción: " . $conn->error;
 }
