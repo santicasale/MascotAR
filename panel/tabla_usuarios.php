@@ -6,7 +6,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != "SÍ"){
   echo "<script>alert('Acceso denegado.'); window.location.href='index.php';</script>";
   exit;
 }
-$sql = "SELECT *FROM usuario ORDER BY id_user ASC";
+$sql = "SELECT *FROM usuario ORDER BY id_user DESC";
 $res = $conn->query($sql);
 ?>
 <!DOCTYPE html>

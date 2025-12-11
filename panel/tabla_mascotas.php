@@ -25,8 +25,7 @@ INNER JOIN mascota_estado ON mascotas.pet_avail = mascota_estado.id_pet_status
 INNER JOIN mascota_color AS color1 ON mascotas.pet_color1 = color1.id_pet_color
 LEFT JOIN mascota_color AS color2 ON mascotas.pet_color2 = color2.id_pet_color
 WHERE mascotas.pet_avail = 1
-ORDER BY mascotas.ID_pet ASC
-";  
+ORDER BY mascotas.ID_pet DESC";  
 
 $res= $conn->query($sql);
 

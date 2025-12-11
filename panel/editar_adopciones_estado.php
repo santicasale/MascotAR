@@ -16,7 +16,7 @@
     <?php
       include("../conexion.php");
 
-      $id = $_GET['Id'];
+      $id = $_GET['id'];
 
       $sql = "SELECT * FROM adopt_estado WHERE id_adopt_status = $id LIMIT 1";
       $res = $conn->query($sql);

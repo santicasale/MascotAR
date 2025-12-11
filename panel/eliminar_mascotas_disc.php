@@ -3,7 +3,6 @@ include("../conexion.php");
 
 $id = intval($_GET['id']);
 
-// Eliminar adopción
 $conn->query("DELETE FROM mascotas_discapacidad WHERE id_pet_disabl = $id");
 
 header("Location: index.php");

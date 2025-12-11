@@ -17,7 +17,7 @@ else {
 }
 
 if ($conn->query($query)) {
-    header("Location: index.php");
+    echo "<script>alert('Donacion actualizada correctamente'); window.location='tabla_donacion.php';</script>";
 } else {
     echo "Error: " . $conn->error;
 }

@@ -28,7 +28,7 @@ $sql = "UPDATE mascotas_hist_medico SET
         WHERE id_pet_med=$id";
 
 if ($conn->query($sql)) {
-    echo "<script>alert('Historial de la mascota actualizado correctamente'); window.location='../index.php';</script>";
+    echo "<script>alert('Historial de la mascota actualizado correctamente');window.location='tabla_mascotas_hist_medico.php';</script>";
 } else {
     echo "Error: " . $conn->error;
 }

@@ -28,21 +28,33 @@
       <input type="hidden" name="id_user" value="<?php echo $row['id_user']; ?>">
 
       <label>Nombre</label>
-      <input type="text" class="form-control mb-3" name="f_name" value="<?php echo $row['f_name']; ?>" required>
+      <input type="text" class="form-control mb-3" name="f_name"
+            value="<?php echo $row['f_name']; ?>" required>
 
       <label>Apellido</label>
-      <input type="text" class="form-control mb-3" name="l_name" value="<?php echo $row['l_name']; ?>" required>
+      <input type="text" class="form-control mb-3" name="l_name"
+            value="<?php echo $row['l_name']; ?>" required>
 
       <label>Email</label>
-      <input type="email" class="form-control mb-3" name="email" value="<?php echo $row['email']; ?>" required>
+      <input type="email" class="form-control mb-3" name="email"
+            value="<?php echo $row['email']; ?>" required>
 
       <label>Nick</label>
-      <input type="text" class="form-control mb-3" name="nick" value="<?php echo $row['nick']; ?>" required>
+      <input type="text" class="form-control mb-3" name="nick"
+            value="<?php echo $row['nick']; ?>" required>
+
+      <label>Fecha de nacimiento</label>
+      <input type="date" class="form-control mb-3" name="birthday"
+            value="<?php echo $row['birthday']; ?>" required>
+
+      <label>Teléfono</label>
+      <input type="text" class="form-control mb-3" name="phone"
+            value="<?php echo $row['phone']; ?>" required>
 
       <label>Admin</label>
       <select name="admin" class="form-select mb-3" required>
-        <option value="SÍ" <?= $row['admin'] == "SÍ" ? 'selected' : '' ?>>SÍ</option>
-        <option value="NO" <?= $row['admin'] == "NO" ? 'selected' : '' ?>>NO</option>
+          <option value="SÍ" <?= $row['admin'] == "SÍ" ? 'selected' : '' ?>>SÍ</option>
+          <option value="NO" <?= $row['admin'] == "NO" ? 'selected' : '' ?>>NO</option>
       </select>
 
       <div class="text-center">
@@ -51,6 +63,7 @@
       </div>
 
     </form>
+
 
   </div>
 
